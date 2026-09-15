@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configurações</title>
+    <link rel="stylesheet" href="a7.css">
+
+</head>
+<body>
+
+    <div class="container-principal">
+        <h1>Configurações do Sistema</h1>
+
+        <form id="formConfig" class="painel-configuracoes">
+            <!-- Seção de Perfil -->
+            <div class="secao-config">
+                <h3>Perfil do Usuário</h3>
+                <div class="campo">
+                    <label for="nome">Nome do Usuário</label>
+                    <input type="text" id="nome" value="Jhonatas" placeholder="Digite seu nome">
+                </div>
+                <div class="campo">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" value="usuario@email.com" placeholder="Digite seu e-mail">
+                </div>
+            </div>
+
+            <!-- Seção de Preferências de Tema -->
+            <div class="secao-config">
+                <h3>Aparência e Gráficos</h3>
+                <div class="campo">
+                    <label for="corTema">Cor Secundária do Painel</label>
+                    <select id="corTema">
+                        <option value="#2563eb">Azul Padrão</option>
+                        <option value="#8a2be2">Roxo Azulado</option>
+                        <option value="#005f73">Azul Petróleo</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Seção de Notificações -->
+            <div class="secao-config">
+                <h3>Notificações</h3>
+                <div class="campo-checkbox">
+                    <input type="checkbox" id="notifEmail" checked>
+                    <label for="notifEmail">Receber relatórios semanais por e-mail</label>
+                </div>
+                <div class="campo-checkbox">
+                    <input type="checkbox" id="alertaMetas" checked>
+                    <label for="alertaMetas">Alertar quando atingir uma meta</label>
+                </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="navegacao">
+                <a href="../telaprincipal/a.html" class="tela">Voltar</a>
+                <button type="submit" class="tela btn-salvar">Salvar Alterações</button>
+            </div>
+        </form>
+    </div>
+
+    <script src="a7.js"></script>
+</body>
+</html>

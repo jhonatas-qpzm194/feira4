@@ -1,0 +1,95 @@
+/* Métricas Principais */
+.kpi-container {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.kpi-card {
+    flex: 1;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.kpi-card span {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.kpi-card h2 {
+    margin: 5px 0 0 0;
+    font-size: 18px;
+    color: #1e293b;
+}
+
+/* Tabela de Relatórios */
+.relatorio-tabela {
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+.relatorio-tabela h3 {
+    margin-top: 0;
+    color: #1e293b;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #e2e8f0;
+    font-size: 14px;
+}
+
+th {
+    background-color: #f8fafc;
+    color: #475569;
+}
+
+/* Badges de Status */
+.badge {
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.badge.verde {
+    background-color: #dcfce7;
+    color: #15803d;
+}
+
+.badge.vermelho {
+    background-color: #fee2e2;
+    color: #b91c1c;
+}
+
+/* Ajuste nos Botões */
+.btn-exportar {
+    background-color: #059669;
+    border: none;
+    cursor: pointer;
+}
+
+.btn-exportar:hover {
+    background-color: #047857;
+}
+
+/* Configuração de Impressão (Gera PDF Limpo) */
+@media print {
+    .navegacao {
+        display: none;
+    }
+}
