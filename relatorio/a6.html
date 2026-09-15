@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Página de Relatórios</title>
+    <link rel="stylesheet" href="a4.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+
+    <div class="container-principal">
+        <h1>Relatório Geral</h1>
+
+        <!-- Métricas Principais (KPIs) -->
+        <div class="kpi-container">
+            <div class="kpi-card">
+                <span>Total de Vendas</span>
+                <h2>R$ 44.500,00</h2>
+            </div>
+            <div class="kpi-card">
+                <span>Relatórios Gerados</span>
+                <h2>128</h2>
+            </div>
+            <div class="kpi-card">
+                <span>Média Mensal</span>
+                <h2>R$ 8.900,00</h2>
+            </div>
+        </div>
+
+       
+        <div class="relatorio-tabela">
+            <h3>Detalhamento por Período</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Mês</th>
+                        <th>Vendas</th>
+                        <th>Meta</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Janeiro</td>
+                        <td>R$ 12.000</td>
+                        <td>R$ 10.000</td>
+                        <td><span class="badge verde">Atingida</span></td>
+                    </tr>
+                    <tr>
+                        <td>Fevereiro</td>
+                        <td>R$ 19.000</td>
+                        <td>R$ 15.000</td>
+                        <td><span class="badge verde">Atingida</span></td>
+                    </tr>
+                    <tr>
+                        <td>Março</td>
+                        <td>R$ 8.000</td>
+                        <td>R$ 10.000</td>
+                        <td><span class="badge vermelho">Abaixo</span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+       
+        <div class="navegacao">
+            <a href="#" class="tela">Voltar</a>
+            <button class="tela btn-exportar" onclick="window.print()">Imprimir / PDF</button>
+        </div>
+    </div>
+
+    <script src="a4.js"></script>
+</body>
+</html>
