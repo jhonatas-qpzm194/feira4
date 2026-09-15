@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FinanceDash - Receitas</title>
+
+    <link rel="stylesheet" href="a2.css">
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <h1>💰 Receitas</h1>
+
+        <p>Cadastre suas receitas financeiras.</p>
+
+        <div class="formulario">
+
+            <label>Descrição da receita</label>
+            <input type="text" id="descricao" placeholder="Ex: Salário">
+
+            <label>Valor</label>
+            <input type="number" id="valor" placeholder="Ex: 2500">
+
+            <button onclick="adicionarReceita()">
+                Adicionar Receita
+            </button>
+
+        </div>
+
+        <div class="lista">
+
+            <h2>Receitas cadastradas</h2>
+
+            <ul id="listaReceitas"></ul>
+
+        </div>
+
+        <a href="../telaprincipal/a.html">⬅ Voltar para o início</a>
+
+    </div>
+
+    <script src="a.js"></script>
+
+</body>
+
+</html>

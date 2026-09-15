@@ -1,0 +1,97 @@
+body {
+    background-color: #f4f6f9;
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 20px;
+}
+
+.container-principal {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+/* Cartões de Metas */
+.cards-metas {
+    display: flex;
+    gap: 15px;
+    width: 100%;
+}
+
+.card {
+    flex: 1;
+    background: #ffffff;
+    padding: 15px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.card h3 {
+    margin: 0 0 8px 0;
+    font-size: 14px;
+    color: #666;
+}
+
+.card .valor {
+    font-size: 20px;
+    font-weight: bold;
+    color: #1e293b;
+    margin: 0 0 8px 0;
+}
+
+.status {
+    font-size: 12px;
+    padding: 4px 8px;
+    border-radius: 12px;
+    font-weight: bold;
+}
+
+.status.bom { background: #e0f2fe; color: #0284c7; }
+.status.medio { background: #fef3c7; color: #d97706; }
+
+/* Área do Gráfico */
+.area-grafico {
+    width: 100%;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    box-sizing: border-box;
+}
+
+/* Navegação e Botões abaixo do gráfico */
+.navegacao {
+    display: flex;
+    gap: 15px;
+}
+
+.tela {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 45px;
+    background-color: #2563eb;
+    color: #ffffff;
+    font-size: 14px;
+    border-radius: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+    transition: background 0.3s;
+}
+
+.tela:hover {
+    background-color: #1d4ed8;
+}
+
+.btn-meta {
+    background-color: #6a5acd;
+}
+
+.btn-meta:hover {
+    background-color: #5a4acf;
+}

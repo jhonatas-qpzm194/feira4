@@ -1,0 +1,143 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f1f5f9;
+    color: #1e293b;
+}
+
+
+.cima {
+    height: 80px;
+    background-color: #0f172a;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+}
+
+
+.titulo p {
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+
+.conta img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid white;
+}
+
+
+nav {
+    width: 200px;
+    min-height: calc(100vh - 80px);
+    background-color: #1e293b;
+    position: fixed;
+    left: 0;
+    top: 80px;
+    padding-top: 1%;
+}
+
+nav ul {
+    list-style: none;
+}
+
+nav li {
+    color: white;
+    padding: 18px 18px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+
+nav li:hover {
+    background-color: #334155;
+    padding-left: 20px;
+}
+
+
+.Receitas,
+body > div:not(.cima):not(.Receitas) {
+    margin-left: 250px;
+}
+
+
+.Receitas {
+    margin-top: 40px;
+}
+
+
+h1 {
+    margin-bottom: 15px;
+    font-size: 25px;
+}
+
+
+input {
+    width: 300px;
+    height: 45px;
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 0 15px;
+    font-size: 16px;
+    outline: none;
+    background-color: white;
+}
+
+
+input:focus {
+    border: 2px solid #2563eb;
+}
+
+
+button {
+    height: 45px;
+    padding: 0 20px;
+    margin-left: 10px;
+    border: none;
+    border-radius: 8px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+button:hover {
+    background-color: #1d4ed8;
+}
+
+
+#resultado {
+    margin-top: 30px;
+    background-color: white;
+    width: 350px;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+nav a{
+     color: white;
+    padding: 18px 30px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: 0.3s;
+    text-decoration: none;
+}
+
+nav a:hover {
+    background-color: #334155;
+    padding-left: 30px;
+}

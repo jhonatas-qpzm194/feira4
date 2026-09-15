@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>FinanceDash - Despesas</title>
+
+    <link rel="stylesheet" href="a3.css">
+</head>
+
+<body>
+
+    <div class="pagina">
+
+        <h1>💸 Despesas</h1>
+
+        <p>Cadastre suas despesas financeiras.</p>
+
+        <div class="formulario">
+
+            <label>Descrição da despesa</label>
+
+            <input
+                type="text"
+                id="descricao"
+                placeholder="Ex: Alimentação"
+            >
+
+            <label>Categoria</label>
+
+            <select id="categoria">
+
+                <option value="">Selecione uma categoria</option>
+                <option value="Alimentação">🍔 Alimentação</option>
+                <option value="Transporte">🚌 Transporte</option>
+                <option value="Lazer">🎮 Lazer</option>
+                <option value="Casa">🏠 Casa</option>
+                <option value="Estudos">📚 Estudos</option>
+                <option value="Outros">📦 Outros</option>
+
+            </select>
+
+            <label>Valor</label>
+
+            <input
+                type="number"
+                id="valor"
+                placeholder="Ex: 50"
+            >
+
+            <button onclick="adicionarDespesa()">
+                Adicionar Despesa
+            </button>
+
+        </div>
+
+
+        <div class="lista">
+
+            <h2>Despesas cadastradas</h2>
+
+            <ul id="listaDespesas"></ul>
+
+        </div>
+
+
+        <a href="../telaprincipal/a.html">
+            ⬅️ Voltar para o início
+        </a>
+
+    </div>
+
+
+    <script src="a3.js"></script>
+
+</body>
+
+</html>
