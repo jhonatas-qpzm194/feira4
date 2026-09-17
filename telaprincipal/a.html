@@ -28,7 +28,9 @@
             <li><a href="../graficos/a4.html">📊Gráficos</a></li>
             <li><a href="../metas/a5.html">🎯Metas</a></li>
             <li><a href="../relatorio/a6.html">📄Relatório</a></li>
+            <li><a href="../conta/a8.html">👤Conta</a></li>
             <li><a href="../configuracoes/a7.html">⚙️Config</a></li>
+            
         </ul>
     </nav>
 
@@ -41,10 +43,29 @@
     <input type="text">
     </div>
 
-    <div>
-        <h1>Gastos por Categoria</h1>
-    
+<div class="area-categoria">
+    <h3>Gastos por Categoria</h3>
+    <div style="height: 220px; margin-bottom: 15px;">
+        <canvas id="meuGrafico"></canvas>
     </div>
+    <ul class="lista-categorias">
+        <li>🏠 Moradia</li>
+        <li>🍔 Alimentação</li>
+        <li>🚌 Transporte</li>
+        <li>🎮 Lazer e Estilo de Vida</li>
+        <li>🏥 Saúde e Bem-Estar</li>
+    </ul>
+    <div class="coluna-midia">
+            <div class="card-imagem">
+            <img src="https://img.magnific.com/fotos-premium/homem-empilhou-a-mao-moedas-com-dinheiro-conceito-de-poupanca-e-grafico-de-lucro-financas-de-negocios-em-um-cofre-com-caixas-de-dinheiro-para-fundos-futuros-de-turismo-casa-e-aposentadoria-em-um-fundo-desfocado_701856-647.jpg" alt="Ilustração Financeira">
+                <div class="legenda-card">
+                    <h4>Controle Financeiro</h4>
+                    <p>Mantenha suas contas em dia diariamente.</p>
+                </div>
+            </div>
+        </div>
+</div>
+
 
 <main class="main-content">
     <h2>Visão Geral</h2>
@@ -52,25 +73,20 @@
         <div class="coluna-dados">
             <div class="grupo-campo">
             <label>Receitas</label>
-            <input type="text" placeholder="R$ 0,00" class="input-dash">
+           
             </div>
                 <div class="grupo-campo">
                 <label>Despesas</label>
-                <input type="text" placeholder="R$ 0,00" class="input-dash">
+                
                 </div>
                 <div class="area-categoria">
                 <h3>Gastos por Categoria</h3>
                 </div>
                 </div>
-                <div class="coluna-midia">
-            <div class="card-imagem">
-            <img src="https://img.magnific.com/fotos-premium/homem-empilhou-a-mao-moedas-com-dinheiro-conceito-de-poupanca-e-grafico-de-lucro-financas-de-negocios-em-um-cofre-com-caixas-de-dinheiro-para-fundos-futuros-de-turismo-casa-e-aposentadoria-em-um-fundo-desfocado_701856-647.jpg" alt="Ilustração Financeira">
-            <div class="legenda-card">
-            <h4>Controle Financeiro</h4>
-            <p>Mantenha suas contas em dia diariamente.</p>
-            </div>
-            </div>
-        </div>
+
+
+                
+        
     </div>
 </main>
     <script src="a.js"></script>
