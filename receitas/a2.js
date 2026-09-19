@@ -13,43 +13,73 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    if (btnGuardar) {
-        btnGuardar.addEventListener('click', async () => {
-            const descricao = inputDescricao.value;
-            const valor = inputValor.value;
+    async function salvar() {
+        const descricao = inputDescricao ? inputDescricao.value : '';
+        const valor = inputValor ? inputValor.value : '';
 
-            if (!descricao || !valor) {
-                alert("Preencha todos os campos da receita.");
-                return;
+        if (!descricao || !valor) {
+            alert("Preencha todos os campos.");
+            return;
+        }
+
+        const emailUtilizadorAtual = localStorage.getItem('utilizadorLogadoEmail');
+
+        if (!emailUtilizadorAtual) {
+            alert("Nenhuma conta iniciada. Por favor, aceda à página de Conta.");
+            return;
+        }
+
+        const dados = {
+            nome: descricao,
+            email: emailUtilizadorAtual,
+            telefone: valor,
+            dataMembro: "2026",
+            plano: "Receita",
+            dataRenovacao: "2026",
+            fotoUrl: ""
+        };
+
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) {
+                alert(`Registo guardado com sucesso na conta: ${emailUtilizadorAtual}`);
+                if (inputDescricao) inputDescricao.value = '';
+                if (inputValor) inputValor.value = '';
+            } else {
+                const textoErro = await resposta.text();
+                alert("Erro ao guardar. Detalhe: " + textoErro);
             }
+        } catch (erro) {
+            console.error("Erro de rede:", erro);
+            alert("Falha na conexão com o servidor.");
+        }
+    }
 
-            try {
-                const resposta = await fetch('http://localhost:50100/api/conta', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        nome: descricao,
-                        email: "receita@email.com",
-                        telefone: valor,
-                        dataMembro: "2026",
-                        plano: "Receita",
-                        dataRenovacao: "2026",
-                        fotoUrl: ""
-                    })
-                });
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', salvar);
+    }
 
-                if (resposta.ok) {
-                    alert("Receita guardada com sucesso!");
-                    inputDescricao.value = '';
-                    inputValor.value = '';
-                } else {
-                    alert("Erro ao guardar receita.");
-                }
-            } catch (erro) {
-                console.error("Erro:", erro);
-                alert("Falha na conexão com o servidor.");
+    if (inputDescricao) {
+        inputDescricao.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                salvar();
+            }
+        });
+    }
+
+    if (inputValor) {
+        inputValor.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                salvar();
             }
         });
     }

@@ -1,144 +1,193 @@
-document.addEventListener("DOMContentLoaded", () => {
-    carregarConfiguracoes();
-    inicializarModalSenha();
+document.addEventListener('DOMContentLoaded', () => {
+    const botoesTab = document.querySelectorAll('.tab-btn');
+    const paineisTab = document.querySelectorAll('.painel-tab');
+    const btnGuardar = document.getElementById('btnGuardarConfig');
+    const statusSalvamento = document.querySelector('.status-salvamento');
+    const selectTema = document.getElementById('selectTema');
+    const selectMoeda = document.getElementById('selectMoeda');
+    const selectIdioma = document.getElementById('selectIdioma');
+    const btnLimparDados = document.getElementById('btnLimparDados');
 
-    const btnSalvar = document.getElementById("btnSalvarConfig");
-    if (btnSalvar) {
-        btnSalvar.addEventListener("click", salvarConfiguracoes);
-    }
-});
+    const tituloCardGeral = document.getElementById('tituloCardGeral');
+    const subTextoGeral = document.getElementById('subTextoGeral');
+    const lblMoeda = document.getElementById('lblMoeda');
+    const lblData = document.getElementById('lblData');
+    const lblTema = document.getElementById('lblTema');
+    const lblIdioma = document.getElementById('lblIdioma');
 
-/* Configurações Gerais */
-function carregarConfiguracoes() {
-    const usuarioMock = {
-        nome: "",
-        email: "",
-        moeda: "BRL",
-        limiteAlerta: 80,
-        notifEmail: true,
-        notifVencimento: true
-    };
+    botoesTab.forEach(botao => {
+        botao.addEventListener('click', () => {
+            botoesTab.forEach(b => b.classList.remove('ativo'));
+            paineisTab.forEach(p => p.classList.remove('ativo'));
 
-    const nomeEl = document.getElementById("nomeUsuario");
-    const emailEl = document.getElementById("emailUsuario");
-    const moedaEl = document.getElementById("moedaPadrao");
-    const limiteEl = document.getElementById("limiteAlerta");
-    const notifEmailEl = document.getElementById("notifEmail");
-    const notifVencEl = document.getElementById("notifVencimento");
-
-    if (nomeEl) nomeEl.value = usuarioMock.nome;
-    if (emailEl) emailEl.value = usuarioMock.email;
-    if (moedaEl) moedaEl.value = usuarioMock.moeda;
-    if (limiteEl) limiteEl.value = usuarioMock.limiteAlerta;
-    if (notifEmailEl) notifEmailEl.checked = usuarioMock.notifEmail;
-    if (notifVencEl) notifVencEl.checked = usuarioMock.notifVencimento;
-}
-
-function salvarConfiguracoes() {
-    const config = {
-        nome: document.getElementById("nomeUsuario")?.value,
-        email: document.getElementById("emailUsuario")?.value,
-        moeda: document.getElementById("moedaPadrao")?.value,
-        limiteAlerta: document.getElementById("limiteAlerta")?.value,
-        notifEmail: document.getElementById("notifEmail")?.checked,
-        notifVencimento: document.getElementById("notifVencimento")?.checked
-    };
-
-    console.log("Configurações salvas:", config);
-}
-
-/* Lógica do Modal de Senha Integrado */
-function inicializarModalSenha() {
-    const modal = document.getElementById("modalSenha");
-    const btnAbrir = document.getElementById("btnAlterarSenha");
-    const btnFechar = document.getElementById("btnFecharModal");
-    const btnCancelar = document.getElementById("btnCancelar");
-    const formSenha = document.getElementById("formAlterarSenha");
-
-    // Abrir e fechar modal
-    if (btnAbrir) btnAbrir.addEventListener("click", () => modal.classList.add("ativo"));
-    
-    const fecharModal = () => {
-        modal.classList.remove("ativo");
-        if (formSenha) formSenha.reset();
-        resetarIndicadorForca();
-    };
-
-    [btnFechar, btnCancelar].forEach(btn => btn?.addEventListener("click", fecharModal));
-
-    // Alternar visibilidade da senha (ícone de olho)
-    document.querySelectorAll(".toggle-senha").forEach(icone => {
-        icone.addEventListener("click", () => {
-            const idAlvo = icone.getAttribute("data-target");
-            const input = document.getElementById(idAlvo);
-            if (input.type === "password") {
-                input.type = "text";
-                icone.classList.replace("fa-eye", "fa-eye-slash");
-            } else {
-                input.type = "password";
-                icone.classList.replace("fa-eye-slash", "fa-eye");
+            botao.classList.add('ativo');
+            const alvoId = botao.getAttribute('data-alvo');
+            const painelAlvo = document.getElementById(alvoId);
+            if (painelAlvo) {
+                painelAlvo.classList.add('ativo');
             }
         });
     });
 
-    // Medidor de força da senha
-    const inputNovaSenha = document.getElementById("novaSenha");
-    inputNovaSenha?.addEventListener("input", () => {
-        const val = inputNovaSenha.value;
-        const barraForca = document.getElementById("barraForca");
-        const textoForca = document.getElementById("textoForca");
+    const temaSalvo = localStorage.getItem('utilizadorTema') || 'midnight';
+    if (selectTema) selectTema.value = temaSalvo;
+    aplicarTema(temaSalvo);
 
-        if (!val) {
-            resetarIndicadorForca();
-            return;
-        }
-
-        let forca = 0;
-        if (val.length >= 8) forca += 25;
-        if (/[A-Z]/.test(val)) forca += 25;
-        if (/[0-9]/.test(val)) forca += 25;
-        if (/[^A-Za-z0-9]/.test(val)) forca += 25;
-
-        barraForca.style.width = forca + "%";
-
-        if (forca <= 25) {
-            barraForca.style.backgroundColor = "#f87171";
-            textoForca.textContent = "Senha Fraca";
-        } else if (forca <= 75) {
-            barraForca.style.backgroundColor = "#fbbf24";
-            textoForca.textContent = "Senha Média";
+    function aplicarTema(tema) {
+        document.body.classList.remove('theme-midnight', 'theme-light', 'theme-dark');
+        if (tema === 'light') {
+            document.body.classList.add('theme-light');
         } else {
-            barraForca.style.backgroundColor = "#34d399";
-            textoForca.textContent = "Senha Forte";
+            document.body.classList.add('theme-midnight');
         }
+    }
+
+    if (selectTema) {
+        selectTema.addEventListener('change', (e) => {
+            aplicarTema(e.target.value);
+        });
+    }
+
+    const traducoes = {
+        pt: {
+            titulo: "Preferências Regionais e Aparência",
+            sub: "Personalize a forma como os dados são exibidos no seu painel.",
+            m: "Moeda Padrão do Sistema",
+            d: "Formato de Data",
+            t: "Tema da Interface",
+            i: "Idioma Principal",
+            btn: "Salvar Todas as Configurações"
+        },
+        en: {
+            titulo: "Regional Preferences and Appearance",
+            sub: "Customize how data is displayed on your dashboard.",
+            m: "System Default Currency",
+            d: "Date Format",
+            t: "Interface Theme",
+            i: "Primary Language",
+            btn: "Save All Settings"
+        }
+    };
+
+    function aplicarIdioma(lang) {
+        const txt = traducoes[lang] || traducoes.pt;
+
+        if (tituloCardGeral) tituloCardGeral.textContent = txt.titulo;
+        if (subTextoGeral) subTextoGeral.textContent = txt.sub;
+        if (lblMoeda) lblMoeda.textContent = txt.m;
+        if (lblData) lblData.textContent = txt.d;
+        if (lblTema) lblTema.textContent = txt.t;
+        if (lblIdioma) lblIdioma.textContent = txt.i;
+        if (btnGuardar) btnGuardar.textContent = txt.btn;
+    }
+
+    const idiomaSalvo = localStorage.getItem('utilizadorIdioma') || 'pt';
+    if (selectIdioma) {
+        selectIdioma.value = idiomaSalvo;
+        aplicarIdioma(idiomaSalvo);
+
+        selectIdioma.addEventListener('change', (e) => {
+            const novoIdioma = e.target.value;
+            localStorage.setItem('utilizadorIdioma', novoIdioma);
+            aplicarIdioma(novoIdioma);
+        });
+    }
+
+    const inputs = document.querySelectorAll('input, select');
+    inputs.forEach(input => {
+        input.addEventListener('change', () => {
+            if (statusSalvamento) {
+                statusSalvamento.textContent = "⚠️ Alterações não guardadas";
+                statusSalvamento.style.color = "#f59e0b";
+            }
+        });
     });
 
-    // Submissão do formulário de senha
-    if (formSenha) {
-        formSenha.addEventListener("submit", (e) => {
-            e.preventDefault();
-            const novaSenha = document.getElementById("novaSenha").value;
-            const confirmarSenha = document.getElementById("confirmarSenha").value;
-            const erroConfirmacao = document.getElementById("erroConfirmacao");
+    if (btnLimparDados) {
+        btnLimparDados.addEventListener('click', async () => {
+            const confirmar = confirm("Tem certeza absoluta de que deseja apagar todas as receitas, despesas e dados do banco de dados para esta conta?");
+            if (!confirmar) return;
 
-            if (novaSenha !== confirmarSenha) {
-                erroConfirmacao.style.display = "block";
+            const emailUtilizadorAtual = localStorage.getItem('utilizadorLogadoEmail');
+            if (!emailUtilizadorAtual) {
+                alert("Nenhum utilizador ativo encontrado.");
                 return;
             }
 
-            erroConfirmacao.style.display = "none";
-            alert("Senha alterada com sucesso!");
-            fecharModal();
+            try {
+                const resDespesas = await fetch(`http://localhost:50100/api/despesas?email=${encodeURIComponent(emailUtilizadorAtual)}`, {
+                    method: 'DELETE'
+                });
+
+                const resReceitas = await fetch(`http://localhost:50100/api/receitas?email=${encodeURIComponent(emailUtilizadorAtual)}`, {
+                    method: 'DELETE'
+                });
+
+                if (resDespesas.ok && resReceitas.ok) {
+                    localStorage.removeItem('utilizadorTema');
+                    localStorage.removeItem('utilizadorIdioma');
+
+                    alert("Dados apagados do banco de dados com sucesso!");
+                    if (statusSalvamento) {
+                        statusSalvamento.textContent = "✅ Dados apagados do banco";
+                        statusSalvamento.style.color = "#10b981";
+                    }
+
+                    setTimeout(() => {
+                        window.location.href = '../telaprincipal/a.html';
+                    }, 1000);
+                } else {
+                    alert("O servidor não conseguiu concluir a exclusão dos dados.");
+                }
+
+            } catch (erro) {
+                console.error("Erro ao limpar dados:", erro);
+                alert("Falha de comunicação com a API ao tentar apagar os dados.");
+            }
         });
     }
-}
 
-function resetarIndicadorForca() {
-    const barraForca = document.getElementById("barraForca");
-    const textoForca = document.getElementById("textoForca");
-    const erroConfirmacao = document.getElementById("erroConfirmacao");
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async () => {
+            const moeda = selectMoeda ? selectMoeda.value : 'BRL';
+            const tema = selectTema ? selectTema.value : 'midnight';
+            const idioma = selectIdioma ? selectIdioma.value : 'pt';
 
-    if (barraForca) barraForca.style.width = "0%";
-    if (textoForca) textoForca.textContent = "Força da senha";
-    if (erroConfirmacao) erroConfirmacao.style.display = "none";
-}
+            localStorage.setItem('utilizadorTema', tema);
+            localStorage.setItem('utilizadorIdioma', idioma);
+
+            const emailUtilizadorAtual = localStorage.getItem('utilizadorLogadoEmail') || "config@email.com";
+
+            try {
+                const resposta = await fetch('http://localhost:50100/api/conta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nome: `Config: ${moeda} / ${tema} / ${idioma}`,
+                        email: emailUtilizadorAtual,
+                        telefone: tema,
+                        dataMembro: "2026",
+                        plano: "ConfiguracaoAvancada",
+                        dataRenovacao: "2026",
+                        fotoUrl: ""
+                    })
+                });
+
+                if (resposta.ok) {
+                    if (statusSalvamento) {
+                        statusSalvamento.textContent = "✅ Todas as configurações foram guardadas";
+                        statusSalvamento.style.color = "#10b981";
+                    }
+                    alert("Configurações avançadas salvas com sucesso!");
+                } else {
+                    alert("Erro ao comunicar com o servidor.");
+                }
+            } catch (erro) {
+                console.error("Erro:", erro);
+                alert("Falha na conexão com a API.");
+            }
+        });
+    }
+});

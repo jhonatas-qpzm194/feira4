@@ -1,97 +1,70 @@
-let relatorioFinanceiro = [];
+document.addEventListener('DOMContentLoaded', () => {
+    const btnAtualizar = document.getElementById('btnAtualizarRelatorio');
+    const tabelaCorpo = document.getElementById('tabelaCorpo');
+    const elReceitas = document.getElementById('totalReceitas');
+    const elDespesas = document.getElementById('totalDespesas');
+    const elSaldo = document.getElementById('saldoConsolidado');
 
-document.addEventListener("DOMContentLoaded", () => {
-    const inputPesquisa = document.getElementById("inputPesquisa");
-    const filtroTipo = document.getElementById("filtroTipo");
+    async function carregarRelatorio() {
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta');
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar dados do servidor.");
+            }
 
-    if (inputPesquisa) inputPesquisa.addEventListener("input", renderizarLista);
-    if (filtroTipo) filtroTipo.addEventListener("change", renderizarLista);
+            const dados = await resposta.json();
+            
+            tabelaCorpo.innerHTML = '';
+            let somaReceitas = 0;
+            let somaDespesas = 0;
 
-    carregarRelatorioDoBanco();
-});
+            if (dados.length === 0) {
+                tabelaCorpo.innerHTML = `<tr><td colspan="4" class="vazio">Nenhum registo encontrado.</td></tr>`;
+                return;
+            }
 
-function carregarRelatorioDoBanco() {
-    atualizarResumo();
-    renderizarLista();
-}
+            dados.forEach(item => {
+                const tr = document.createElement('tr');
+                
+                const tipo = item.plano || 'Outros';
+                let valorNumerico = 0;
 
-function atualizarResumo() {
-    const balancoEl = document.getElementById("balancoTotal");
-    const receitasEl = document.getElementById("totalReceitas");
-    const despesasEl = document.getElementById("totalDespesas");
-    const lancamentosEl = document.getElementById("totalLancamentos");
+                if (item.telefone) {
+                    let limpo = String(item.telefone).replace('R$', '').trim();
+                    limpo = limpo.replace(/\./g, '').replace(',', '.');
+                    valorNumerico = parseFloat(limpo) || 0;
+                }
 
-    let totalReceitas = 0;
-    let totalDespesas = 0;
+                if (tipo === 'Despesa') {
+                    somaDespesas += valorNumerico;
+                } else if (tipo === 'Receita') {
+                    somaReceitas += valorNumerico;
+                }
 
-    relatorioFinanceiro.forEach(item => {
-        const valor = parseFloat(item.valor) || 0;
-        if (item.tipo === 'receita') {
-            totalReceitas += valor;
-        } else if (item.tipo === 'despesa') {
-            totalDespesas += valor;
+                tr.innerHTML = `
+                    <td>${item.nome || '-'}</td>
+                    <td><span class="badge">${tipo}</span></td>
+                    <td>${item.telefone || 'R$ 0,00'}</td>
+                    <td>${item.dataMembro || '-'}</td>
+                `;
+                tabelaCorpo.appendChild(tr);
+            });
+
+            elReceitas.textContent = `R$ ${somaReceitas.toFixed(2).replace('.', ',')}`;
+            elDespesas.textContent = `R$ ${somaDespesas.toFixed(2).replace('.', ',')}`;
+            
+            const saldo = somaReceitas - somaDespesas;
+            elSaldo.textContent = `R$ ${saldo.toFixed(2).replace('.', ',')}`;
+
+        } catch (erro) {
+            console.error("Erro:", erro);
+            tabelaCorpo.innerHTML = `<tr><td colspan="4" class="vazio">Falha ao conectar com a API.</td></tr>`;
         }
-    });
-
-    const balancoTotal = totalReceitas - totalDespesas;
-
-    if (balancoEl) balancoEl.textContent = formatarMoeda(balancoTotal);
-    if (receitasEl) receitasEl.textContent = formatarMoeda(totalReceitas);
-    if (despesasEl) despesasEl.textContent = formatarMoeda(totalDespesas);
-    if (lancamentosEl) lancamentosEl.textContent = relatorioFinanceiro.length;
-}
-
-function renderizarLista() {
-    const listaElemento = document.getElementById("listaRelatorio");
-    if (!listaElemento) return;
-
-    const textoPesquisa = (document.getElementById("inputPesquisa")?.value || "").toLowerCase();
-    const tipoSelecionado = document.getElementById("filtroTipo")?.value || "todos";
-
-    const dadosFiltrados = relatorioFinanceiro.filter(item => {
-        const correspondeTipo = tipoSelecionado === 'todos' || item.tipo === tipoSelecionado;
-        const correspondeTexto = (item.descricao || "").toLowerCase().includes(textoPesquisa) || 
-                                 (item.categoria || "").toLowerCase().includes(textoPesquisa);
-        return correspondeTipo && correspondeTexto;
-    });
-
-    listaElemento.innerHTML = "";
-
-    if (dadosFiltrados.length === 0) {
-        listaElemento.innerHTML = `
-            <div class="lista-vazia">
-                <i class="fa-solid fa-chart-line"></i>
-                <p>Nenhuma transação encontrada no relatório.</p>
-            </div>
-        `;
-    } else {
-        dadosFiltrados.forEach(item => {
-            const div = document.createElement("div");
-            div.className = "item-historico";
-
-            const icone = item.tipo === 'receita' ? 'fa-solid fa-arrow-up-long' : 'fa-solid fa-arrow-down-long';
-            const sinal = item.tipo === 'receita' ? '+' : '-';
-
-            div.innerHTML = `
-                <div class="item-esquerda">
-                    <div class="icone-tipo ${item.tipo}">
-                        <i class="${icone}"></i>
-                    </div>
-                    <div class="info-acao">
-                        <h4>${item.descricao}</h4>
-                        <p>${item.categoria || 'Geral'}</p>
-                    </div>
-                </div>
-                <div class="item-direita">
-                    <span class="valor-transacao ${item.tipo}">${sinal} ${formatarMoeda(item.valor)}</span>
-                    <span class="data-hora">${item.data}</span>
-                </div>
-            `;
-            listaElemento.appendChild(div);
-        });
     }
-}
 
-function formatarMoeda(valor) {
-    return Number(valor || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-}
+    if (btnAtualizar) {
+        btnAtualizar.addEventListener('click', carregarRelatorio);
+    }
+
+    carregarRelatorio();
+});

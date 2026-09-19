@@ -1,62 +1,141 @@
-document.addEventListener("DOMContentLoaded", () => {
-    carregarDadosContaBD();
-});
-
-async function carregarDadosContaBD() {
-    try {
-        const resposta = await fetch("/api/conta");
-        if (!resposta.ok) throw new Error("Erro ao carregar os dados da conta");
-
-        const dados = await resposta.json();
-        preencherDadosConta(dados);
-    } catch (erro) {
-        console.error("Erro ao obter dados da base de dados:", erro);
-        // Em caso de erro, define um avatar padrao para nao quebrar a imagem
-        const fotoPerfil = document.getElementById("fotoPerfil");
-        if (fotoPerfil) {
-            fotoPerfil.src = "https://ui-avatars.com/api/?name=Usuario&background=6366f1&color=fff";
-        }
-    }
-}
-
-function preencherDadosConta(dados) {
-    if (!dados) return;
-
-    // Perfil Topo
-    const exibicaoNome = document.getElementById("exibicaoNome");
-    const exibicaoEmail = document.getElementById("exibicaoEmail");
-    const fotoPerfil = document.getElementById("fotoPerfil");
-    const badgeTextoPlano = document.getElementById("badgeTextoPlano");
-
-    if (exibicaoNome) exibicaoNome.textContent = dados.nome || "";
-    if (exibicaoEmail) exibicaoEmail.textContent = dados.email || "";
-    if (badgeTextoPlano) badgeTextoPlano.textContent = dados.plano || "";
+document.addEventListener('DOMContentLoaded', () => {
+    const inputNome = document.getElementById('inputNome');
+    const inputEmail = document.getElementById('inputEmail');
+    const inputTelefone = document.getElementById('inputTelefone');
+    const inputArquivoFoto = document.getElementById('inputArquivoFoto');
+    const btnTrocarFoto = document.querySelector('.btn-trocar-foto');
     
-    // Define a foto vinda do BD ou um avatar padrão baseado no nome
-    if (fotoPerfil) {
-        if (dados.fotoUrl) {
-            fotoPerfil.src = dados.fotoUrl;
-        } else {
-            const nomeAvatar = dados.nome || "Usuario";
-            fotoPerfil.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(nomeAvatar)}&background=6366f1&color=fff`;
+    const nomeTopo = document.getElementById('nomeUsuarioTopo');
+    const emailTopo = document.getElementById('emailUsuarioTopo');
+    const badgePlano = document.getElementById('badgePlanoTopo');
+    const infoPlanoNome = document.getElementById('infoPlanoNome');
+    const infoMembro = document.getElementById('infoMembroDesde');
+    const infoRenovacao = document.getElementById('infoRenovacao');
+    const fotoPreview = document.getElementById('fotoPerfilPreview');
+    
+    const btnGuardar = document.getElementById('btnGuardarConta');
+    const statusSalvamento = document.querySelector('.status-salvamento');
+
+    let base64FotoTemp = '';
+
+    if (inputArquivoFoto) {
+        inputArquivoFoto.style.display = 'none';
+    }
+
+    if (btnTrocarFoto && inputArquivoFoto) {
+        btnTrocarFoto.addEventListener('click', () => {
+            inputArquivoFoto.click();
+        });
+    }
+
+    async function carregarConta() {
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta');
+            if (!resposta.ok) {
+                throw new Error("Erro ao buscar dados da conta.");
+            }
+
+            const dados = await resposta.json();
+            const emailSalvo = localStorage.getItem('utilizadorLogadoEmail');
+            
+            let contaAtual = null;
+            if (emailSalvo) {
+                contaAtual = dados.find(item => item.email === emailSalvo);
+            }
+
+            if (!contaAtual && dados.length > 0) {
+                contaAtual = dados[dados.length - 1];
+            }
+
+            if (contaAtual) {
+                inputNome.value = contaAtual.nome || '';
+                inputEmail.value = contaAtual.email || '';
+                inputTelefone.value = contaAtual.telefone || '';
+
+                if (contaAtual.email) {
+                    localStorage.setItem('utilizadorLogadoEmail', contaAtual.email);
+                }
+
+                if (nomeTopo) nomeTopo.textContent = contaAtual.nome || 'Utilizador';
+                if (emailTopo) emailTopo.textContent = contaAtual.email || 'utilizador@email.com';
+                
+                const planoTexto = contaAtual.plano || 'Pro';
+                if (badgePlano) badgePlano.textContent = `Plano ${planoTexto}`;
+                if (infoPlanoNome) infoPlanoNome.textContent = `FinanceDash ${planoTexto}`;
+                
+                if (infoMembro) infoMembro.textContent = contaAtual.dataMembro || '2026';
+                if (infoRenovacao) infoRenovacao.textContent = contaAtual.dataRenovacao || '31/12/2026';
+
+                if (contaAtual.fotoUrl && fotoPreview) {
+                    fotoPreview.src = contaAtual.fotoUrl;
+                    base64FotoTemp = contaAtual.fotoUrl;
+                }
+            }
+        } catch (erro) {
+            console.error("Erro:", erro);
         }
     }
 
-    // Detalhes Pessoais
-    const infoNome = document.getElementById("infoNome");
-    const infoEmail = document.getElementById("infoEmail");
-    const infoTelefone = document.getElementById("infoTelefone");
-    const infoDataMembro = document.getElementById("infoDataMembro");
+    if (inputArquivoFoto) {
+        inputArquivoFoto.addEventListener('change', (e) => {
+            const ficheiro = e.target.files[0];
+            if (ficheiro) {
+                const leitor = new FileReader();
+                leitor.onload = function(evento) {
+                    base64FotoTemp = evento.target.result;
+                    if (fotoPreview) {
+                        fotoPreview.src = base64FotoTemp;
+                    }
+                };
+                leitor.readAsDataURL(ficheiro);
+            }
+        });
+    }
 
-    if (infoNome) infoNome.textContent = dados.nome || "";
-    if (infoEmail) infoEmail.textContent = dados.email || "";
-    if (infoTelefone) infoTelefone.textContent = dados.telefone || "";
-    if (infoDataMembro) infoDataMembro.textContent = dados.dataMembro || "";
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async () => {
+            const novoEmail = inputEmail.value.trim();
+            if (!novoEmail) {
+                alert("O campo de e-mail é obrigatório.");
+                return;
+            }
 
-    // Plano e Subscrição
-    const nomePlano = document.getElementById("nomePlano");
-    const dataRenovacao = document.getElementById("dataRenovacao");
+            localStorage.setItem('utilizadorLogadoEmail', novoEmail);
 
-    if (nomePlano) nomePlano.textContent = dados.plano || "";
-    if (dataRenovacao) dataRenovacao.textContent = dados.dataRenovacao || "";
-}
+            try {
+                const resposta = await fetch('http://localhost:50100/api/conta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nome: inputNome.value,
+                        email: novoEmail,
+                        telefone: inputTelefone.value,
+                        dataMembro: infoMembro ? infoMembro.textContent : '2026',
+                        plano: "Pro",
+                        dataRenovacao: infoRenovacao ? infoRenovacao.textContent : '31/12/2026',
+                        fotoUrl: base64FotoTemp || (fotoPreview ? fotoPreview.src : '')
+                    })
+                });
+
+                if (resposta.ok) {
+                    if (nomeTopo) nomeTopo.textContent = inputNome.value;
+                    if (emailTopo) emailTopo.textContent = novoEmail;
+                    if (statusSalvamento) {
+                        statusSalvamento.textContent = "✅ Dados e foto atualizados com sucesso";
+                        statusSalvamento.style.color = "#10b981";
+                    }
+                    alert("Dados da conta e foto de perfil guardados com sucesso!");
+                } else {
+                    alert("Erro ao guardar dados.");
+                }
+            } catch (erro) {
+                console.error("Erro:", erro);
+                alert("Falha na conexão com o servidor.");
+            }
+        });
+    }
+
+    carregarConta();
+});

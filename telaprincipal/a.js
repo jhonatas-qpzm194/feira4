@@ -1,85 +1,132 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const inputReceita = document.getElementById('inputReceita');
-    const inputDespesa = document.getElementById('inputDespesa');
-    const btnSalvarReceita = document.getElementById('btnSalvarReceita');
+document.addEventListener('DOMContentLoaded', async () => {
+    let meuGrafico = null;
 
-    const formatarMoeda = (valor) => {
-        let v = String(valor).replace(/\D/g, '');
-        v = (v / 100).toFixed(2) + '';
-        v = v.replace('.', ',');
-        v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
-        return 'R$ ' + v;
-    };
+    async function carregarDashboardReal() {
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta');
+            if (!resposta.ok) {
+                throw new Error("Erro ao obter dados da API.");
+            }
 
-    [inputReceita, inputDespesa].forEach(input => {
-        if (input) {
-            input.addEventListener('input', (e) => {
-                if (e.target.value !== '') {
-                    e.target.value = formatarMoeda(e.target.value);
+            const dados = await resposta.json();
+
+            let totalReceitas = 0;
+            let totalDespesas = 0;
+
+            dados.forEach(item => {
+                const tipo = item.plano ? item.plano.trim().toLowerCase() : '';
+                let valor = 0;
+
+                if (item.telefone) {
+                    let limpo = String(item.telefone).replace('R$', '').trim();
+                    limpo = limpo.replace(/\./g, '').replace(',', '.');
+                    valor = parseFloat(limpo) || 0;
+                }
+
+                if (tipo === 'receita') {
+                    totalReceitas += valor;
+                } else if (tipo === 'despesa') {
+                    totalDespesas += valor;
                 }
             });
+
+            const saldo = totalReceitas - totalDespesas;
+
+            const cardSaldo = document.getElementById('cardSaldo');
+            const cardReceitas = document.getElementById('cardReceitas');
+            const cardDespesas = document.getElementById('cardDespesas');
+
+            if (cardSaldo) cardSaldo.textContent = `R$ ${saldo.toFixed(2).replace('.', ',')}`;
+            if (cardReceitas) cardReceitas.textContent = `R$ ${totalReceitas.toFixed(2).replace('.', ',')}`;
+            if (cardDespesas) cardDespesas.textContent = `R$ ${totalDespesas.toFixed(2).replace('.', ',')}`;
+
+            renderizarGrafico(totalReceitas, totalDespesas);
+            carregarMetas(dados);
+
+        } catch (erro) {
+            console.error("Erro ao carregar dados do dashboard:", erro);
         }
-    });
-
-    if (btnSalvarReceita) {
-        btnSalvarReceita.addEventListener('click', async () => {
-            const valorInformado = inputReceita.value;
-
-            if (!valorInformado) {
-                alert("Por favor, preencha o valor da receita.");
-                return;
-            }
-
-            try {
-                const resposta = await fetch('http://localhost:50100/api/conta', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        nome: "Utilizador Principal",
-                        email: "utilizador@email.com",
-                        telefone: "(11) 99999-9999",
-                        dataMembro: "Outubro de 2026",
-                        plano: "FinanceDash Premium",
-                        dataRenovacao: "18/10/2027",
-                        fotoUrl: ""
-                    })
-                });
-
-                if (resposta.ok) {
-                    alert("Informação guardada com sucesso!");
-                    inputReceita.value = '';
-                } else {
-                    alert("Erro ao guardar na base de dados.");
-                }
-            } catch (erro) {
-                console.error("Erro:", erro);
-                alert("Falha na ligação com o servidor da API.");
-            }
-        });
     }
 
-    const ctx = document.getElementById('meuGrafico');
-    if (ctx) {
-        new Chart(ctx.getContext('2d'), {
-            type: 'doughnut',
+    function renderizarGrafico(receitas, despesas) {
+        const elementoCanvas = document.getElementById('graficoInicioReal');
+        if (!elementoCanvas) return;
+        const ctx = elementoCanvas.getContext('2d');
+
+        if (meuGrafico) {
+            meuGrafico.destroy();
+        }
+
+        meuGrafico = new Chart(ctx, {
+            type: 'bar',
             data: {
-                labels: ['Moradia', 'Alimentação', 'Transporte', 'Lazer'],
+                labels: ['Receitas', 'Despesas'],
                 datasets: [{
-                    data: [1500, 1200, 600, 450],
-                    backgroundColor: ['#2563eb', '#8a2be2', '#005f73', '#6a5acd'],
-                    borderWidth: 2,
-                    borderColor: '#ffffff'
+                    label: 'Valor em R$',
+                    data: [receitas, despesas],
+                    backgroundColor: ['#10b981', '#ef4444'],
+                    borderRadius: 8,
+                    borderWidth: 1
                 }]
             },
             options: {
                 responsive: true,
                 maintainAspectRatio: false,
                 plugins: {
-                    legend: { position: 'bottom' }
+                    legend: {
+                        display: false
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            color: 'rgba(255, 255, 255, 0.05)'
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        },
+                        ticks: {
+                            color: '#94a3b8'
+                        }
+                    }
                 }
             }
         });
     }
+
+    function carregarMetas(dados) {
+        const containerMetasInicio = document.getElementById('containerMetasInicio');
+        if (!containerMetasInicio) return;
+
+        const metasFiltradas = dados.filter(item => {
+            const plano = item.plano ? item.plano.trim().toLowerCase() : '';
+            return plano.includes('meta') || plano.includes('planea') || plano.includes('planeja');
+        });
+
+        containerMetasInicio.innerHTML = '';
+
+        if (metasFiltradas.length === 0) {
+            containerMetasInicio.innerHTML = '<p>Nenhuma meta planejada registada.</p>';
+            return;
+        }
+
+        metasFiltradas.forEach(meta => {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'meta-card-item';
+            itemDiv.innerHTML = `
+                <h4>${meta.nome}</h4>
+                <p>Valor Planeado: ${meta.telefone}</p>
+                <p>Data: ${meta.data_membro}</p>
+            `;
+            containerMetasInicio.appendChild(itemDiv);
+        });
+    }
+
+    carregarDashboardReal();
 });

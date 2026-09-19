@@ -1,95 +1,51 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceDash - Metas Financeiras</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>FinanceDash - Metas</title>
     <link rel="stylesheet" href="a5.css">
 </head>
-
 <body>
 
-    <div class="container-pagina">
-
-        <header class="cabecalho-metas">
-            <div class="bloco-titulo">
-                <div class="badge-icone">
-                    <i class="fa-solid fa-bullseye"></i>
-                </div>
-                <div>
-                    <h1>Planeador de Metas</h1>
-                    <p>Acompanhe o progresso das suas conquistas</p>
-                </div>
-            </div>
-            <div class="resumo-topo">
-                <span>Progresso Geral</span>
-                <strong id="totalProgresso">0%</strong>
-            </div>
-        </header>
-
-        <div class="conteudo-grid">
-
-            <aside class="coluna-formulario">
-                <div class="card-painel">
-                    <h3><i class="fa-solid fa-flag"></i> Nova Meta</h3>
-
-                    <form id="formMeta" class="formulario-metas">
-                        <div class="grupo-input">
-                            <label for="descricao">Objetivo</label>
-                            <input type="text" id="descricao" name="descricao" placeholder="Ex: Viagem, Fundo de Reserva" required>
-                        </div>
-
-                        <div class="grupo-input">
-                            <label for="valorAtual">Valor Atual (R$)</label>
-                            <input type="number" id="valorAtual" name="valorAtual" step="0.01" min="0" placeholder="0.00" required>
-                        </div>
-
-                        <div class="grupo-input">
-                            <label for="valorObjetivo">Valor Alvo (R$)</label>
-                            <input type="number" id="valorObjetivo" name="valorObjetivo" step="0.01" min="0.01" placeholder="0.00" required>
-                        </div>
-
-                        <button type="submit" class="btn-adicionar-meta">
-                            <i class="fa-solid fa-plus"></i> Criar Meta
-                        </button>
-                    </form>
-                </div>
-            </aside>
-
-            <main class="coluna-lista">
-                <div class="card-painel">
-                    <div class="cabecalho-lista">
-                        <h3><i class="fa-solid fa-trophy"></i> Metas em Andamento</h3>
-                    </div>
-
-                    <div id="listaMetas" class="grelha-metas">
-                        <div class="lista-vazia">
-                            <i class="fa-solid fa-folder-open"></i>
-                            <p>Nenhuma meta cadastrada até ao momento.</p>
-                        </div>
-                    </div>
-                </div>
-            </main>
-
+    <div class="cima">
+        <div class="titulo">
+            <p>💰 FinanceDash</p>
         </div>
-
-        <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="btn-voltar">
-                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
-            </a>
+        <div class="conta">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
-
     </div>
 
+    <nav>
+        <ul>
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
+        </ul>
+    </nav>
+
+   <main class="conteudo-principal">
+    <div class="card-grafico-principal" style="background-color: #1e293b; color: #ffffff; padding: 20px; border-radius: 8px; margin-bottom: 20px;">
+        <h2>Registar Nova Meta</h2>
+        <div class="formulario-meta" style="margin-top: 15px;">
+            <input type="text" id="inputDescricaoMeta" placeholder="Nome da Meta (ex: Comprar Carro)" style="padding: 10px; width: 100%; margin-bottom: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 4px;">
+            <input type="text" id="inputValorMeta" placeholder="Valor Planeado (R$)" style="padding: 10px; width: 100%; margin-bottom: 10px; background: #0f172a; border: 1px solid #334155; color: #fff; border-radius: 4px;">
+            <button id="btnGuardarMeta" style="padding: 10px 20px; background: #10b981; color: #fff; border: none; cursor: pointer; border-radius: 4px;">Guardar Meta</button>
+        </div>
+    </div>
+
+    <div class="card-grafico-principal" style="background-color: #1e293b; color: #ffffff; padding: 20px; border-radius: 8px;">
+        <h2>Metas Registadas</h2>
+        <div id="containerListaMetas" style="margin-top: 15px;">
+        </div>
+    </div>
+</main>
     <script src="a5.js"></script>
-
 </body>
-
 </html>

@@ -1,98 +1,133 @@
-let metas = [];
+document.addEventListener('DOMContentLoaded', () => {
+    const inputDescricao = document.getElementById('inputDescricaoMeta');
+    const inputValor = document.getElementById('inputValorMeta');
+    const btnGuardar = document.getElementById('btnGuardarMeta');
+    const containerLista = document.getElementById('containerListaMetas');
 
-document.addEventListener("DOMContentLoaded", () => {
-    const form = document.getElementById("formMeta");
-    form.addEventListener("submit", manipularEnvio);
-    renderizarInterface();
-});
-
-function manipularEnvio(evento) {
-    evento.preventDefault();
-
-    const descricao = document.getElementById("descricao").value.trim();
-    const valorAtual = parseFloat(document.getElementById("valorAtual").value);
-    const valorObjetivo = parseFloat(document.getElementById("valorObjetivo").value);
-
-    if (!descricao || isNaN(valorAtual) || isNaN(valorObjetivo) || valorObjetivo <= 0) {
-        return;
-    }
-
-    const novaMeta = {
-        id: Date.now(),
-        descricao: descricao,
-        valorAtual: valorAtual,
-        valorObjetivo: valorObjetivo
-    };
-
-    adicionarMeta(novaMeta);
-
-    document.getElementById("formMeta").reset();
-    document.getElementById("descricao").focus();
-}
-
-function adicionarMeta(item) {
-    metas.push(item);
-    renderizarInterface();
-}
-
-function removerMeta(id) {
-    metas = metas.filter(item => item.id !== id);
-    renderizarInterface();
-}
-
-function calcularProgressoGeral() {
-    if (metas.length === 0) return 0;
-
-    const somaAtual = metas.reduce((acc, item) => acc + item.valorAtual, 0);
-    const somaObjetivo = metas.reduce((acc, item) => acc + item.valorObjetivo, 0);
-
-    const percentual = (somaAtual / somaObjetivo) * 100;
-    return Math.min(percentual, 100).toFixed(1);
-}
-
-function renderizarInterface() {
-    const listaElemento = document.getElementById("listaMetas");
-    const progressoElemento = document.getElementById("totalProgresso");
-
-    listaElemento.innerHTML = "";
-
-    if (metas.length === 0) {
-        listaElemento.innerHTML = `
-            <div class="lista-vazia">
-                <i class="fa-solid fa-folder-open"></i>
-                <p>Nenhuma meta cadastrada até ao momento.</p>
-            </div>
-        `;
-    } else {
-        metas.forEach(item => {
-            const pct = Math.min(((item.valorAtual / item.valorObjetivo) * 100), 100).toFixed(1);
-            
-            const div = document.createElement("div");
-            div.className = "card-item-meta";
-            div.innerHTML = `
-                <div class="info-topo-meta">
-                    <div class="detalhes-meta">
-                        <h4>${item.descricao}</h4>
-                        <p>${formatarMoeda(item.valorAtual)} de ${formatarMoeda(item.valorObjetivo)}</p>
-                    </div>
-                    <div class="lado-direito-meta">
-                        <span class="badge-percentual">${pct}%</span>
-                        <button type="button" class="btn-remover-meta" onclick="removerMeta(${item.id})" title="Remover">
-                            <i class="fa-solid fa-trash-can"></i>
-                        </button>
-                    </div>
-                </div>
-                <div class="trilho-progresso">
-                    <div class="preenchimento-progresso" style="width: ${pct}%;"></div>
-                </div>
-            `;
-            listaElemento.appendChild(div);
+    if (inputValor) {
+        inputValor.addEventListener('input', (e) => {
+            let v = String(e.target.value).replace(/\D/g, '');
+            v = (v / 100).toFixed(2) + '';
+            v = v.replace('.', ',');
+            v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            e.target.value = 'R$ ' + v;
         });
     }
 
-    progressoElemento.textContent = `${calcularProgressoGeral()}%`;
-}
+    async function salvarMeta() {
+        const descricao = inputDescricao ? inputDescricao.value : '';
+        const valor = inputValor ? inputValor.value : '';
 
-function formatarMoeda(valor) {
-    return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
-}
+        if (!descricao || !valor) {
+            alert("Preencha todos os campos da meta.");
+            return;
+        }
+
+        const emailUtilizadorAtual = localStorage.getItem('utilizadorLogadoEmail');
+
+        if (!emailUtilizadorAtual) {
+            alert("Nenhuma conta iniciada. Por favor, aceda à página de Conta.");
+            return;
+        }
+
+        const dados = {
+            nome: descricao,
+            email: emailUtilizadorAtual,
+            telefone: valor,
+            dataMembro: "2026",
+            plano: "Meta",
+            dataRenovacao: "2026",
+            fotoUrl: ""
+        };
+
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(dados)
+            });
+
+            if (resposta.ok) {
+                alert(`Meta guardada com sucesso na conta: ${emailUtilizadorAtual}`);
+                if (inputDescricao) inputDescricao.value = '';
+                if (inputValor) inputValor.value = '';
+                carregarMetas();
+            } else {
+                const textoErro = await resposta.text();
+                alert("Erro ao guardar meta. Detalhe: " + textoErro);
+            }
+        } catch (erro) {
+            console.error("Erro de rede:", erro);
+            alert("Falha na conexão com o servidor.");
+        }
+    }
+
+    async function carregarMetas() {
+        if (!containerLista) return;
+
+        const emailUtilizadorAtual = localStorage.getItem('utilizadorLogadoEmail');
+        if (!emailUtilizadorAtual) return;
+
+        try {
+            const resposta = await fetch('http://localhost:50100/api/conta');
+            if (resposta.ok) {
+                const dados = await resposta.json();
+                const dadosDoUtilizador = dados.filter(item => item.email === emailUtilizadorAtual);
+
+                const metasFiltradas = dadosDoUtilizador.filter(item => {
+                    const plano = item.plano ? item.plano.trim().toLowerCase() : '';
+                    return plano.includes('meta') || plano.includes('planea') || plano.includes('planeja');
+                });
+
+                containerLista.innerHTML = '';
+
+                if (metasFiltradas.length === 0) {
+                    containerLista.innerHTML = '<p style="color: #94a3b8;">Nenhuma meta registada nesta conta.</p>';
+                    return;
+                }
+
+                metasFiltradas.forEach(meta => {
+                    const itemDiv = document.createElement('div');
+                    itemDiv.className = 'meta-card-item';
+                    itemDiv.style.backgroundColor = '#334155';
+                    itemDiv.style.padding = '15px';
+                    itemDiv.style.borderRadius = '6px';
+                    itemDiv.style.marginBottom = '10px';
+                    itemDiv.innerHTML = `
+                        <h4 style="margin: 0 0 5px 0; color: #fff;">${meta.nome}</h4>
+                        <p style="margin: 0; color: #cbd5e1;">Valor Planeado: ${meta.telefone}</p>
+                    `;
+                    containerLista.appendChild(itemDiv);
+                });
+            }
+        } catch (erro) {
+            console.error("Erro ao carregar metas:", erro);
+        }
+    }
+
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', salvarMeta);
+    }
+
+    if (inputDescricao) {
+        inputDescricao.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                salvarMeta();
+            }
+        });
+    }
+
+    if (inputValor) {
+        inputValor.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                salvarMeta();
+            }
+        });
+    }
+
+    carregarMetas();
+});

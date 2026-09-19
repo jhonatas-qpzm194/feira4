@@ -1,107 +1,103 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceDash - A Minha Conta</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>FinanceDash - Minha Conta</title>
     <link rel="stylesheet" href="a8.css">
 </head>
-
 <body>
 
-    <div class="container-pagina">
-
-        <header class="cabecalho-conta">
-            <div class="bloco-titulo">
-                <div class="badge-icone">
-                    <i class="fa-solid fa-address-card"></i>
-                </div>
-                <div>
-                    <h1>A Minha Conta</h1>
-                    <p>Consulte as suas informações pessoais e detalhes da subscrição</p>
-                </div>
-            </div>
-            <a href="../configuracoes/a7.html" class="btn-acao-principal">
-                <i class="fa-solid fa-pen-to-square"></i> Editar Perfil
-            </a>
-        </header>
-
-        <div class="cartao-perfil-topo">
-            <div class="avatar-container">
-                <img id="fotoPerfil" src="" alt="Foto de Perfil">
-                <button class="btn-mudar-foto" title="Alterar Foto">
-                    <i class="fa-solid fa-camera"></i>
-                </button>
-            </div>
-            <div class="info-perfil-resumo">
-                <h2 id="exibicaoNome"></h2>
-                <p id="exibicaoEmail"></p>
-                <span class="badge-plano" id="exibicaoPlano"><i class="fa-solid fa-crown"></i> <span id="badgeTextoPlano"></span></span>
-            </div>
+    <div class="cima">
+        <div class="titulo">
+            <p>💰 FinanceDash</p>
         </div>
-
-        <div class="painel-principal">
-
-            <section class="secao-info">
-                <div class="secao-titulo">
-                    <i class="fa-solid fa-id-card"></i>
-                    <h2>Informações Pessoais</h2>
-                </div>
-                <div class="grid-detalhes">
-                    <div class="item-detalhe">
-                        <span class="rotulo">Nome Completo</span>
-                        <span class="valor" id="infoNome"></span>
-                    </div>
-                    <div class="item-detalhe">
-                        <span class="rotulo">E-mail</span>
-                        <span class="valor" id="infoEmail"></span>
-                    </div>
-                    <div class="item-detalhe">
-                        <span class="rotulo">Telefone / Telemóvel</span>
-                        <span class="valor" id="infoTelefone"></span>
-                    </div>
-                    <div class="item-detalhe">
-                        <span class="rotulo">Membro Desde</span>
-                        <span class="valor" id="infoDataMembro"></span>
-                    </div>
-                </div>
-            </section>
-
-            <section class="secao-info">
-                <div class="secao-titulo">
-                    <i class="fa-solid fa-credit-card"></i>
-                    <h2>Subscrição & Plano</h2>
-                </div>
-                <div class="cartao-plano">
-                    <div class="detalhe-plano">
-                        <h4>Plano Atual: <strong id="nomePlano"></strong></h4>
-                        <p>Renovação automática em: <span id="dataRenovacao"></span></p>
-                    </div>
-                    <button class="btn-secundario">
-                        <i class="fa-solid fa-arrows-rotate"></i> Gerir Subscrição
-                    </button>
-                </div>
-            </section>
-
+        <div class="conta">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
-
-        <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="btn-voltar">
-                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
-            </a>
-        </div>
-
     </div>
 
+    <nav>
+        <ul>
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
+        </ul>
+    </nav>
+
+    <main class="conteudo-principal">
+        <div class="container-conta">
+            
+            <div class="card-painel perfil-cabecalho">
+                <div class="avatar-wrapper">
+                    <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Foto de Perfil" id="fotoPerfilPreview">
+                    <button type="button" class="btn-trocar-foto">📷</button>
+                </div>
+                <div class="info-usuario-topo">
+                    <h2 id="nomeUsuarioTopo">Carregando utilizador...</h2>
+                    <p id="emailUsuarioTopo">utilizador@email.com</p>
+                    <span class="badge-plano" id="badgePlanoTopo">Plano Premium</span>
+                </div>
+            </div>
+
+            <div class="grid-duplo">
+                <div class="card-painel">
+                    <h2>Dados Pessoais</h2>
+                    <p class="sub-texto">Atualize as suas informações cadastrais e de contacto.</p>
+
+                    <div class="grupo-campo">
+                        <label>Nome Completo</label>
+                        <input type="text" id="inputNome" class="input-dash" placeholder="O seu nome">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label>Endereço de E-mail</label>
+                        <input type="email" id="inputEmail" class="input-dash" placeholder="seu@email.com">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label>Telefone / Telemóvel</label>
+                        <input type="text" id="inputTelefone" class="input-dash" placeholder="(00) 00000-0000">
+                    </div>
+                </div>
+
+                <div class="card-painel">
+                    <h2>Detalhes da Assinatura</h2>
+                    <p class="sub-texto">Informações sobre o seu plano atual e renovação.</p>
+
+                    <div class="info-plano-bloco">
+                        <div class="linha-info">
+                            <span>Plano Atual:</span>
+                            <strong id="infoPlanoNome">FinanceDash Pro</strong>
+                        </div>
+                        <div class="linha-info">
+                            <span>Membro desde:</span>
+                            <strong id="infoMembroDesde">Janeiro de 2026</strong>
+                        </div>
+                        <div class="linha-info">
+                            <span>Próxima Renovação:</span>
+                            <strong id="infoRenovacao">31/12/2026</strong>
+                        </div>
+                    </div>
+
+                    <input type="file" id="inputArquivoFoto" accept="image/*">
+                    <button type="button" class="btn-secundario-outline">Gerir ou Mudar de Plano</button>
+                </div>
+            </div>
+
+            <div class="barra-inferior-salvar">
+                <p class="status-salvamento">Dados sincronizados com o servidor</p>
+                <button id="btnGuardarConta" type="button" class="btn-primario-grande">Salvar Alterações</button>
+            </div>
+
+        </div>
+    </main>
+
     <script src="a8.js"></script>
-
 </body>
-
 </html>

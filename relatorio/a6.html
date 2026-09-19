@@ -1,104 +1,78 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceDash - Relatório Financeiro</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>FinanceDash - Relatório</title>
     <link rel="stylesheet" href="a6.css">
 </head>
-
 <body>
 
-    <div class="container-pagina">
-
-        <header class="cabecalho-relatorio">
-            <div class="bloco-titulo">
-                <div class="badge-icone">
-                    <i class="fa-solid fa-chart-pie"></i>
-                </div>
-                <div>
-                    <h1>Relatório Financeiro</h1>
-                    <p>Resumo detalhado das suas movimentações e balanço geral</p>
-                </div>
-            </div>
-            <div class="resumo-topo">
-                <span>Balanço Total</span>
-                <strong id="balancoTotal">R$ 0,00</strong>
-            </div>
-        </header>
-
-        <section class="cards-resumo">
-            <div class="card-metrica receita">
-                <div class="metrica-icone">
-                    <i class="fa-solid fa-arrow-up-long"></i>
-                </div>
-                <div class="metrica-info">
-                    <span>Total de Receitas</span>
-                    <h3 id="totalReceitas">R$ 0,00</h3>
-                </div>
-            </div>
-
-            <div class="card-metrica despesa">
-                <div class="metrica-icone">
-                    <i class="fa-solid fa-arrow-down-long"></i>
-                </div>
-                <div class="metrica-info">
-                    <span>Total de Despesas</span>
-                    <h3 id="totalDespesas">R$ 0,00</h3>
-                </div>
-            </div>
-
-            <div class="card-metrica transacoes">
-                <div class="metrica-icone">
-                    <i class="fa-solid fa-receipt"></i>
-                </div>
-                <div class="metrica-info">
-                    <span>Total de Lançamentos</span>
-                    <h3 id="totalLancamentos">0</h3>
-                </div>
-            </div>
-        </section>
-
-        <div class="painel-principal">
-
-            <div class="barra-filtros">
-                <div class="campo-pesquisa">
-                    <i class="fa-solid fa-magnifying-glass"></i>
-                    <input type="text" id="inputPesquisa" placeholder="Pesquisar por descrição ou categoria...">
-                </div>
-
-                <div class="filtro-categoria">
-                    <select id="filtroTipo">
-                        <option value="todos">Todas as Transações</option>
-                        <option value="receita">Apenas Receitas</option>
-                        <option value="despesa">Apenas Despesas</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="conteudo-lista">
-                <div id="listaRelatorio" class="lista-historico"></div>
-            </div>
-
+    <div class="cima">
+        <div class="titulo">
+            <p>💰 FinanceDash</p>
         </div>
-
-        <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="btn-voltar">
-                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
-            </a>
+        <div class="conta">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
-
     </div>
 
+    <nav>
+        <ul>
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
+        </ul>
+    </nav>
+
+    <main class="conteudo-principal">
+        <div class="container-relatorio">
+            <div class="cards-resumo">
+                <div class="card-metrica">
+                    <h3>Total Receitas</h3>
+                    <p id="totalReceitas" class="valor-verde">R$ 0,00</p>
+                </div>
+                <div class="card-metrica">
+                    <h3>Total Despesas</h3>
+                    <p id="totalDespesas" class="valor-vermelho">R$ 0,00</p>
+                </div>
+                <div class="card-metrica">
+                    <h3>Saldo Consolidado</h3>
+                    <p id="saldoConsolidado" class="valor-neutro">R$ 0,00</p>
+                </div>
+            </div>
+
+            <div class="card-tabela">
+                <div class="cabecalho-tabela">
+                    <h2>Histórico de Transações</h2>
+                    <button id="btnAtualizarRelatorio" type="button">Atualizar Dados</button>
+                </div>
+                <div class="tabela-wrapper">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Descrição</th>
+                                <th>Categoria</th>
+                                <th>Valor</th>
+                                <th>Data</th>
+                            </tr>
+                        </thead>
+                        <tbody id="tabelaCorpo">
+                            <tr>
+                                <td colspan="4" class="vazio">A carregar dados do relatório...</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script src="a6.js"></script>
-
 </body>
-
 </html>

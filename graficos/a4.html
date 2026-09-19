@@ -1,88 +1,60 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FinanceDash - Desempenho e Situação Financeira</title>
-
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <title>FinanceDash - Gráficos</title>
     <link rel="stylesheet" href="a4.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
-
 <body>
 
-    <div class="container-pagina">
-
-        <header class="cabecalho">
-            <div class="icone-titulo">
-                <i class="fa-solid fa-chart-pie"></i>
-            </div>
-            <div>
-                <h1>Visão Geral e Desempenho</h1>
-                <p>Análise consolidada da sua situação financeira</p>
-            </div>
-        </header>
-
-        <div class="painel-resumo">
-            <div class="card-kpi saldo">
-                <div class="kpi-info">
-                    <span>Saldo Atual</span>
-                    <h3 id="saldoTotal">R$ 0,00</h3>
-                </div>
-                <div class="kpi-icone">
-                    <i class="fa-solid fa-scale-balanced"></i>
-                </div>
-            </div>
-
-            <div class="card-kpi receita">
-                <div class="kpi-info">
-                    <span>Total Receitas</span>
-                    <h3 id="totalReceitas">R$ 0,00</h3>
-                </div>
-                <div class="kpi-icone">
-                    <i class="fa-solid fa-arrow-trend-up"></i>
-                </div>
-            </div>
-
-            <div class="card-kpi despesa">
-                <div class="kpi-info">
-                    <span>Total Despesas</span>
-                    <h3 id="totalDespesas">R$ 0,00</h3>
-                </div>
-                <div class="kpi-icone">
-                    <i class="fa-solid fa-arrow-trend-down"></i>
-                </div>
-            </div>
+    <div class="cima">
+        <div class="titulo">
+            <p>💰 FinanceDash</p>
         </div>
-
-        <div class="card-grafico">
-            <div class="cabecalho-grafico">
-                <h3><i class="fa-solid fa-chart-donut"></i> Distribuição Financeira</h3>
-                <span id="statusSaude" class="tag-status">Sem dados</span>
-            </div>
-            
-            <div class="area-chart">
-                <canvas id="graficoFinanceiro"></canvas>
-            </div>
+        <div class="conta">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
-
-        <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="btn-voltar">
-                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
-            </a>
-        </div>
-
     </div>
 
+    <nav>
+        <ul>
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
+        </ul>
+    </nav>
+
+    <main class="conteudo-principal">
+        <div class="grid-graficos">
+            <div class="card-painel">
+                <h2>Adicionar Dados ao Gráfico</h2>
+                <div class="grupo-campo">
+                    <label>Categoria ou Mês</label>
+                    <input type="text" id="inputRotulo" class="input-dash" placeholder="Ex: Julho ou Alimentação">
+                </div>
+                <div class="grupo-campo">
+                    <label>Valor</label>
+                    <input type="text" id="inputValorDado" class="input-dash" placeholder="R$ 0,00">
+                </div>
+                <button id="btnAdicionarDado" type="button">Atualizar Gráfico</button>
+            </div>
+
+            <div class="card-grafico">
+                <h2>Balanço Dinâmico</h2>
+                <div class="container-canvas">
+                    <canvas id="graficoDinamico"></canvas>
+                </div>
+            </div>
+        </div>
+    </main>
+
     <script src="a4.js"></script>
-
 </body>
-
 </html>

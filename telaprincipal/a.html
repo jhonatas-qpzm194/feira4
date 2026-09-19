@@ -32,37 +32,41 @@
     </nav>
 
     <main class="conteudo-principal">
-        <div class="cards-topo">
-            <div class="card-painel">
-                <h3>Registar Receita</h3>
-                <input type="text" id="inputReceita" class="input-dash" placeholder="R$ 0,00">
-                <button id="btnSalvarReceita" type="button">Guardar Receita</button>
-            </div>
-
-            <div class="card-painel">
-                <h3>Registar Despesa</h3>
-                <input type="text" id="inputDespesa" class="input-dash" placeholder="R$ 0,00">
-                <button id="btnSalvarDespesa" type="button">Guardar Despesa</button>
-            </div>
-        </div>
-
-        <div class="painel-inferior">
-            <div class="bloco-grafico">
-                <h3>Gastos por Categoria</h3>
-                <div class="container-canvas">
-                    <canvas id="meuGrafico"></canvas>
+        <div class="container-inicio">
+            
+            <div class="cards-resumo">
+                <div class="card-metrica">
+                    <h3>Saldo Atual</h3>
+                    <p id="cardSaldo" class="valor-neutro">R$ 0,00</p>
+                </div>
+                <div class="card-metrica">
+                    <h3>Total de Receitas</h3>
+                    <p id="cardReceitas" class="valor-verde">R$ 0,00</p>
+                </div>
+                <div class="card-metrica">
+                    <h3>Total de Despesas</h3>
+                    <p id="cardDespesas" class="valor-vermelho">R$ 0,00</p>
                 </div>
             </div>
 
-            <div class="bloco-banner">
-                <div class="card-imagem">
-                    <img src="https://img.magnific.com/fotos-premium/homem-empilhou-a-mao-moedas-com-dinheiro-conceito-de-poupanca-e-grafico-de-lucro-financas-de-negocios-em-um-cofre-com-caixas-de-dinheiro-para-fundos-futuros-de-turismo-casa-e-aposentadoria-em-um-fundo-desfocado_701856-647.jpg" alt="Cofre">
-                    <div class="legenda-card">
-                        <h4>Controle Financeiro</h4>
-                        <p>Mantenha suas contas em dia diariamente.</p>
-                    </div>
+            <div class="card-grafico-principal">
+                <div class="cabecalho-card">
+                    <h2>Resumo Financeiro Real</h2>
+                    <span class="sub-card">Comparativo de Receitas vs Despesas</span>
+                </div>
+                <div class="canvas-container">
+                    <canvas id="graficoInicioReal"></canvas>
                 </div>
             </div>
+
+           <div class="card-grafico-principal" style="margin-top: 20px; background-color: #1e293b; color: #ffffff;">
+    <div class="cabecalho-card">
+        <h2 style="color: #ffffff;">Metas e Planeamentos</h2>
+        <span class="sub-card" style="color: #94a3b8;">Acompanhamento de objetivos</span>
+    </div>
+    <div id="containerMetasInicio" style="padding: 20px; color: #ffffff;">
+    </div>
+</div>
         </div>
     </main>
 
