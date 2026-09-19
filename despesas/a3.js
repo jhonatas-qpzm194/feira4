@@ -1,41 +1,80 @@
-function adicionarDespesa() {
+let despesas = [];
 
-    let descricao = document.getElementById("descricao").value;
+document.addEventListener("DOMContentLoaded", () => {
+    const form = document.getElementById("formDespesa");
+    form.addEventListener("submit", manipularEnvio);
+    renderizarInterface();
+});
 
-    let categoria = document.getElementById("categoria").value;
+function manipularEnvio(evento) {
+    evento.preventDefault();
 
-    let valor = Number(document.getElementById("valor").value);
+    const descricao = document.getElementById("descricao").value.trim();
+    const categoria = document.getElementById("categoria").value;
+    const valor = parseFloat(document.getElementById("valor").value);
 
-
-    if (descricao === "" || categoria === "" || valor <= 0) {
-
-        alert("Preencha todos os campos corretamente!");
-
+    if (!descricao || !categoria || isNaN(valor) || valor <= 0) {
         return;
     }
 
+    const novaDespesa = {
+        id: Date.now(),
+        descricao: descricao,
+        categoria: categoria,
+        valor: valor
+    };
 
-    let lista = document.getElementById("listaDespesas");
+    adicionarDespesa(novaDespesa);
 
+    document.getElementById("formDespesa").reset();
+    document.getElementById("descricao").focus();
+}
 
-    let item = document.createElement("li");
+function adicionarDespesa(item) {
+    despesas.push(item);
+    renderizarInterface();
+}
 
+function removerDespesa(id) {
+    despesas = despesas.filter(item => item.id !== id);
+    renderizarInterface();
+}
 
-    item.innerHTML = `
-        💸 ${descricao}
-        <br>
-        Categoria: ${categoria}
-        <br>
-        Valor: R$ ${valor.toFixed(2)}
-    `;
+function calcularTotal() {
+    return despesas.reduce((acumulado, item) => acumulado + item.valor, 0);
+}
 
+function renderizarInterface() {
+    const listaElemento = document.getElementById("listaDespesas");
+    const totalElemento = document.getElementById("totalDespesas");
 
-    lista.appendChild(item);
+    listaElemento.innerHTML = "";
 
+    if (despesas.length === 0) {
+        listaElemento.innerHTML = `<li class="lista-vazia">Nenhuma despesa cadastrada.</li>`;
+    } else {
+        despesas.forEach(item => {
+            const li = document.createElement("li");
+            li.className = "item-despesa";
+            li.innerHTML = `
+                <div class="info-item">
+                    <h4>${item.descricao}</h4>
+                    <span>${item.categoria}</span>
+                </div>
+                <div class="valor-item">
+                    <strong>- ${formatarMoeda(item.valor)}</strong>
+                    <button type="button" class="btn-remover" onclick="removerDespesa(${item.id})" title="Remover">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                </div>
+            `;
+            listaElemento.appendChild(li);
+        });
+    }
 
-    document.getElementById("descricao").value = "";
+    totalElemento.textContent = formatarMoeda(calcularTotal());
+}
 
-    document.getElementById("categoria").value = "";
-
-    document.getElementById("valor").value = "";
+function formatarMoeda(valor) {
+    return valor.toLocaleString("pt-BR", { style: "currency", currency: "BRL" });
 }

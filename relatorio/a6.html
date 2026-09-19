@@ -1,75 +1,104 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Relatórios</title>
+    <title>FinanceDash - Relatório Financeiro</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="a6.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <div class="container-principal">
-        <h1>Relatório Geral</h1>
+    <div class="container-pagina">
 
-        <!-- Métricas Principais (KPIs) -->
-        <div class="kpi-container">
-            <div class="kpi-card">
-                <span>Total de Vendas</span>
-                <h2>R$ 44.500,00</h2>
+        <header class="cabecalho-relatorio">
+            <div class="bloco-titulo">
+                <div class="badge-icone">
+                    <i class="fa-solid fa-chart-pie"></i>
+                </div>
+                <div>
+                    <h1>Relatório Financeiro</h1>
+                    <p>Resumo detalhado das suas movimentações e balanço geral</p>
+                </div>
             </div>
-            <div class="kpi-card">
-                <span>Relatórios Gerados</span>
-                <h2>128</h2>
+            <div class="resumo-topo">
+                <span>Balanço Total</span>
+                <strong id="balancoTotal">R$ 0,00</strong>
             </div>
-            <div class="kpi-card">
-                <span>Média Mensal</span>
-                <h2>R$ 8.900,00</h2>
+        </header>
+
+        <section class="cards-resumo">
+            <div class="card-metrica receita">
+                <div class="metrica-icone">
+                    <i class="fa-solid fa-arrow-up-long"></i>
+                </div>
+                <div class="metrica-info">
+                    <span>Total de Receitas</span>
+                    <h3 id="totalReceitas">R$ 0,00</h3>
+                </div>
             </div>
+
+            <div class="card-metrica despesa">
+                <div class="metrica-icone">
+                    <i class="fa-solid fa-arrow-down-long"></i>
+                </div>
+                <div class="metrica-info">
+                    <span>Total de Despesas</span>
+                    <h3 id="totalDespesas">R$ 0,00</h3>
+                </div>
+            </div>
+
+            <div class="card-metrica transacoes">
+                <div class="metrica-icone">
+                    <i class="fa-solid fa-receipt"></i>
+                </div>
+                <div class="metrica-info">
+                    <span>Total de Lançamentos</span>
+                    <h3 id="totalLancamentos">0</h3>
+                </div>
+            </div>
+        </section>
+
+        <div class="painel-principal">
+
+            <div class="barra-filtros">
+                <div class="campo-pesquisa">
+                    <i class="fa-solid fa-magnifying-glass"></i>
+                    <input type="text" id="inputPesquisa" placeholder="Pesquisar por descrição ou categoria...">
+                </div>
+
+                <div class="filtro-categoria">
+                    <select id="filtroTipo">
+                        <option value="todos">Todas as Transações</option>
+                        <option value="receita">Apenas Receitas</option>
+                        <option value="despesa">Apenas Despesas</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="conteudo-lista">
+                <div id="listaRelatorio" class="lista-historico"></div>
+            </div>
+
         </div>
 
-       
-        <div class="relatorio-tabela">
-            <h3>Detalhamento por Período</h3>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Mês</th>
-                        <th>Vendas</th>
-                        <th>Meta</th>
-                        <th>Status</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Janeiro</td>
-                        <td>R$ 12.000</td>
-                        <td>R$ 10.000</td>
-                        <td><span class="badge verde">Atingida</span></td>
-                    </tr>
-                    <tr>
-                        <td>Fevereiro</td>
-                        <td>R$ 19.000</td>
-                        <td>R$ 15.000</td>
-                        <td><span class="badge verde">Atingida</span></td>
-                    </tr>
-                    <tr>
-                        <td>Março</td>
-                        <td>R$ 8.000</td>
-                        <td>R$ 10.000</td>
-                        <td><span class="badge vermelho">Abaixo</span></td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-
-       
         <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="tela">Voltar</a>
-            <button class="tela btn-exportar" onclick="window.print()">Imprimir / PDF</button>
+            <a href="../telaprincipal/a.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
+            </a>
         </div>
+
     </div>
 
     <script src="a6.js"></script>
+
 </body>
+
 </html>

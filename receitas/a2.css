@@ -1,4 +1,3 @@
-
 * {
     margin: 0;
     padding: 0;
@@ -6,84 +5,155 @@
 }
 
 body {
-    font-family: Arial, sans-serif;
-    background-color: #f1f5f9;
+    font-family: 'Segoe UI', Arial, sans-serif;
     color: #1e293b;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    min-height: 100vh;
 }
 
-.pagina {
-    width: 600px;
-    margin: 50px auto;
-    background-color: white;
-    padding: 40px;
-    border-radius: 15px;
-    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+.cima {
+    height: 80px;
+    background-color: #090d16;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
 }
 
-h1 {
-    margin-bottom: 10px;
+.titulo p {
+    color: white;
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
 }
 
-p {
-    margin-bottom: 30px;
+.conta img {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid #38bdf8;
 }
 
-.formulario {
+nav {
+    width: 240px;
+    min-height: calc(100vh - 80px);
+    background-color: #0f172a;
+    position: fixed;
+    left: 0;
+    top: 80px;
+    padding-top: 30px;
+    border-right: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+nav ul {
+    list-style: none;
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 5px;
 }
 
-label {
-    font-weight: bold;
-    margin-top: 10px;
+nav a {
+    color: #94a3b8;
+    padding: 14px 25px;
+    font-size: 15px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: all 0.3s ease;
+    border-left: 4px solid transparent;
 }
 
-input {
-    height: 45px;
-    padding: 10px;
-    border: 1px solid #cbd5e1;
-    border-radius: 8px;
+nav a:hover {
+    background-color: #1e293b;
+    color: #38bdf8;
+    padding-left: 30px;
+    border-left-color: #38bdf8;
+}
+
+.conteudo-principal {
+    margin-left: 240px;
+    margin-top: 80px;
+    padding: 50px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.card-painel {
+    background: #ffffff;
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    width: 100%;
+    max-width: 550px;
+}
+
+.card-painel h2 {
+    font-size: 24px;
+    color: #0f172a;
+    font-weight: 700;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 15px;
+}
+
+.grupo-campo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.grupo-campo label {
+    font-weight: 600;
+    color: #475569;
+    font-size: 14px;
+}
+
+.input-dash {
+    width: 100%;
+    height: 50px;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 10px;
+    padding: 0 18px;
     font-size: 16px;
+    outline: none;
+    background-color: #f8fafc;
+    transition: all 0.3s ease;
+}
+
+.input-dash:focus {
+    border-color: #38bdf8;
+    background-color: #ffffff;
+    box-shadow: 0 0 0 4px rgba(56, 189, 248, 0.15);
 }
 
 button {
-    margin-top: 20px;
-    height: 45px;
+    height: 50px;
+    padding: 0 25px;
     border: none;
-    border-radius: 8px;
-    background-color: #2563eb;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #0284c7, #2563eb);
     color: white;
     font-size: 16px;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+    margin-top: 10px;
 }
 
 button:hover {
-    background-color: #1d4ed8;
-}
-
-.lista {
-    margin-top: 40px;
-}
-
-.lista h2 {
-    margin-bottom: 15px;
-}
-
-#listaReceitas {
-    list-style: none;
-}
-
-#listaReceitas li {
-    background-color: #f1f5f9;
-    padding: 15px;
-    margin-bottom: 10px;
-    border-radius: 8px;
-}
-
-a {
-    display: inline-block;
-    margin-top: 30px;
-    color: #2563eb;
-    text-decoration: none;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(37, 99, 235, 0.4);
+    background: linear-gradient(135deg, #0369a1, #1d4ed8);
 }

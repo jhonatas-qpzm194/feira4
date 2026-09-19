@@ -4,74 +4,84 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>FinanceDash - Despesas</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <link rel="stylesheet" href="a3.css">
 </head>
 
 <body>
 
-    <div class="pagina">
+    <div class="container-pagina">
 
-        <h1>💸 Despesas</h1>
+        <header class="cabecalho">
+            <div class="icone-titulo">
+                <i class="fa-solid fa-money-bill-transfer"></i>
+            </div>
+            <div>
+                <h1>Gestão de Despesas</h1>
+                <p>Cadastre e controle os seus gastos mensais</p>
+            </div>
+        </header>
 
-        <p>Cadastre suas despesas financeiras.</p>
-
-        <div class="formulario">
-
-            <label>Descrição da despesa</label>
-
-            <input
-                type="text"
-                id="descricao"
-                placeholder="Ex: Alimentação"
-            >
-
-            <label>Categoria</label>
-
-            <select id="categoria">
-
-                <option value="">Selecione uma categoria</option>
-                <option value="Alimentação">🍔 Alimentação</option>
-                <option value="Transporte">🚌 Transporte</option>
-                <option value="Lazer">🎮 Lazer</option>
-                <option value="Casa">🏠 Casa</option>
-                <option value="Estudos">📚 Estudos</option>
-                <option value="Outros">📦 Outros</option>
-
-            </select>
-
-            <label>Valor</label>
-
-            <input
-                type="number"
-                id="valor"
-                placeholder="Ex: 50"
-            >
-
-            <button onclick="adicionarDespesa()">
-                Adicionar Despesa
-            </button>
-
+        <div class="card-total">
+            <span>Total de Despesas</span>
+            <h2 id="totalDespesas">R$ 0,00</h2>
         </div>
 
+        <div class="card-formulario">
+            <h3><i class="fa-solid fa-minus-circle"></i> Adicionar Nova Despesa</h3>
 
-        <div class="lista">
+            <form id="formDespesa" class="formulario">
+                <div class="grupo-input">
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" name="descricao" placeholder="Ex: Supermercado, Aluguel" required>
+                </div>
 
-            <h2>Despesas cadastradas</h2>
+                <div class="linha-dupla">
+                    <div class="grupo-input">
+                        <label for="categoria">Categoria</label>
+                        <select id="categoria" name="categoria" required>
+                            <option value="" disabled selected>Selecione</option>
+                            <option value="Alimentação">🍔 Alimentação</option>
+                            <option value="Transporte">🚌 Transporte</option>
+                            <option value="Lazer">🎮 Lazer</option>
+                            <option value="Casa">🏠 Casa</option>
+                            <option value="Estudos">📚 Estudos</option>
+                            <option value="Outros">📦 Outros</option>
+                        </select>
+                    </div>
 
-            <ul id="listaDespesas"></ul>
+                    <div class="grupo-input">
+                        <label for="valor">Valor (R$)</label>
+                        <input type="number" id="valor" name="valor" step="0.01" min="0.01" placeholder="0.00" required>
+                    </div>
+                </div>
 
+                <button type="submit" class="btn-adicionar">
+                    <i class="fa-solid fa-check"></i> Adicionar Despesa
+                </button>
+            </form>
         </div>
 
+        <div class="card-lista">
+            <h3><i class="fa-solid fa-list-check"></i> Despesas Registadas</h3>
+            <ul id="listaDespesas" class="lista-items">
+                <li class="lista-vazia">Nenhuma despesa cadastrada.</li>
+            </ul>
+        </div>
 
-        <a href="../telaprincipal/a.html">
-            ⬅️ Voltar para o início
-        </a>
+        <div class="navegacao">
+            <a href="../telaprincipal/a.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
+            </a>
+        </div>
 
     </div>
-
 
     <script src="a3.js"></script>
 

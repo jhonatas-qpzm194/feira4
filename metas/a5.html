@@ -1,43 +1,95 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Página de Metas</title>
+    <title>FinanceDash - Metas Financeiras</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <link rel="stylesheet" href="a5.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
+
 <body>
 
-    <div class="container-principal">
-        <h1>Painel de Metas</h1>
+    <div class="container-pagina">
 
-     
-        <div class="cards-metas">
-            <div class="card">
-                <h3>Meta Mensal</h3>
-                <p class="valor">R$ 10.000</p>
-                <span class="status bom">80% Atingido</span>
+        <header class="cabecalho-metas">
+            <div class="bloco-titulo">
+                <div class="badge-icone">
+                    <i class="fa-solid fa-bullseye"></i>
+                </div>
+                <div>
+                    <h1>Planeador de Metas</h1>
+                    <p>Acompanhe o progresso das suas conquistas</p>
+                </div>
             </div>
-            <div class="card">
-                <h3>Meta Anual</h3>
-                <p class="valor">R$ 120.000</p>
-                <span class="status medio">45% Atingido</span>
+            <div class="resumo-topo">
+                <span>Progresso Geral</span>
+                <strong id="totalProgresso">0%</strong>
             </div>
+        </header>
+
+        <div class="conteudo-grid">
+
+            <aside class="coluna-formulario">
+                <div class="card-painel">
+                    <h3><i class="fa-solid fa-flag"></i> Nova Meta</h3>
+
+                    <form id="formMeta" class="formulario-metas">
+                        <div class="grupo-input">
+                            <label for="descricao">Objetivo</label>
+                            <input type="text" id="descricao" name="descricao" placeholder="Ex: Viagem, Fundo de Reserva" required>
+                        </div>
+
+                        <div class="grupo-input">
+                            <label for="valorAtual">Valor Atual (R$)</label>
+                            <input type="number" id="valorAtual" name="valorAtual" step="0.01" min="0" placeholder="0.00" required>
+                        </div>
+
+                        <div class="grupo-input">
+                            <label for="valorObjetivo">Valor Alvo (R$)</label>
+                            <input type="number" id="valorObjetivo" name="valorObjetivo" step="0.01" min="0.01" placeholder="0.00" required>
+                        </div>
+
+                        <button type="submit" class="btn-adicionar-meta">
+                            <i class="fa-solid fa-plus"></i> Criar Meta
+                        </button>
+                    </form>
+                </div>
+            </aside>
+
+            <main class="coluna-lista">
+                <div class="card-painel">
+                    <div class="cabecalho-lista">
+                        <h3><i class="fa-solid fa-trophy"></i> Metas em Andamento</h3>
+                    </div>
+
+                    <div id="listaMetas" class="grelha-metas">
+                        <div class="lista-vazia">
+                            <i class="fa-solid fa-folder-open"></i>
+                            <p>Nenhuma meta cadastrada até ao momento.</p>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
         </div>
 
-        
-        <div class="area-grafico">
-            <canvas id="meuGrafico"></canvas>
-        </div>
-
-        
         <div class="navegacao">
-            <a href="../telaprincipal/a.html" class="tela">Tela Principal</a>
-            <a href="" class="tela btn-meta">Nova Meta</a>
+            <a href="../telaprincipal/a.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
+            </a>
         </div>
+
     </div>
 
     <script src="a5.js"></script>
+
 </body>
+
 </html>

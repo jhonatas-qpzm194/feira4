@@ -1,0 +1,27 @@
+{
+  "name": "feira4",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jhonatas-qpzm194/feira4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "bugs": {
+    "url": "https://github.com/jhonatas-qpzm194/feira4/issues"
+  },
+  "homepage": "https://github.com/jhonatas-qpzm194/feira4#readme",
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.0",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4"
+  }
+}

@@ -1,25 +1,88 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gráficos</title>
-    <link rel="stylesheet" href="a4.css">
-    <!-- Biblioteca Chart.js -->
+    <title>FinanceDash - Desempenho e Situação Financeira</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <link rel="stylesheet" href="a4.css">
 </head>
+
 <body>
 
-  <div class="container-principal">
-    
-    <div class="area-grafico">
-        <canvas id="meuGrafico"></canvas>
+    <div class="container-pagina">
+
+        <header class="cabecalho">
+            <div class="icone-titulo">
+                <i class="fa-solid fa-chart-pie"></i>
+            </div>
+            <div>
+                <h1>Visão Geral e Desempenho</h1>
+                <p>Análise consolidada da sua situação financeira</p>
+            </div>
+        </header>
+
+        <div class="painel-resumo">
+            <div class="card-kpi saldo">
+                <div class="kpi-info">
+                    <span>Saldo Atual</span>
+                    <h3 id="saldoTotal">R$ 0,00</h3>
+                </div>
+                <div class="kpi-icone">
+                    <i class="fa-solid fa-scale-balanced"></i>
+                </div>
+            </div>
+
+            <div class="card-kpi receita">
+                <div class="kpi-info">
+                    <span>Total Receitas</span>
+                    <h3 id="totalReceitas">R$ 0,00</h3>
+                </div>
+                <div class="kpi-icone">
+                    <i class="fa-solid fa-arrow-trend-up"></i>
+                </div>
+            </div>
+
+            <div class="card-kpi despesa">
+                <div class="kpi-info">
+                    <span>Total Despesas</span>
+                    <h3 id="totalDespesas">R$ 0,00</h3>
+                </div>
+                <div class="kpi-icone">
+                    <i class="fa-solid fa-arrow-trend-down"></i>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-grafico">
+            <div class="cabecalho-grafico">
+                <h3><i class="fa-solid fa-chart-donut"></i> Distribuição Financeira</h3>
+                <span id="statusSaude" class="tag-status">Sem dados</span>
+            </div>
+            
+            <div class="area-chart">
+                <canvas id="graficoFinanceiro"></canvas>
+            </div>
+        </div>
+
+        <div class="navegacao">
+            <a href="../telaprincipal/a.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
+            </a>
+        </div>
+
     </div>
 
-    
-    <a href="../telaprincipal/a.html" class="tela">Tela Principal</a>
-</div>
-    
     <script src="a4.js"></script>
+
 </body>
+
 </html>

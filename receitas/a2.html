@@ -1,51 +1,50 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>FinanceDash - Receitas</title>
-
     <link rel="stylesheet" href="a2.css">
 </head>
-
 <body>
 
-    <div class="pagina">
-
-        <h1>💰 Receitas</h1>
-
-        <p>Cadastre suas receitas financeiras.</p>
-
-        <div class="formulario">
-
-            <label>Descrição da receita</label>
-            <input type="text" id="descricao" placeholder="Ex: Salário">
-
-            <label>Valor</label>
-            <input type="number" id="valor" placeholder="Ex: 2500">
-
-            <button onclick="adicionarReceita()">
-                Adicionar Receita
-            </button>
-
+    <div class="cima">
+        <div class="titulo">
+            <p>💰 FinanceDash</p>
         </div>
-
-        <div class="lista">
-
-            <h2>Receitas cadastradas</h2>
-
-            <ul id="listaReceitas"></ul>
-
+        <div class="conta">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
-
-        <a href="../telaprincipal/a.html">⬅ Voltar para o início</a>
-
     </div>
 
+    <nav>
+        <ul>
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
+        </ul>
+    </nav>
+
+    <main class="conteudo-principal">
+        <div class="card-painel">
+            <h2>Gerir Receitas</h2>
+            <div class="grupo-campo">
+                <label>Descrição da Receita</label>
+                <input type="text" id="inputDescricao" class="input-dash" placeholder="Ex: Salário, Projeto, Vendas">
+            </div>
+            <div class="grupo-campo">
+                <label>Valor</label>
+                <input type="text" id="inputValorReceita" class="input-dash" placeholder="R$ 0,00">
+            </div>
+            <button id="btnGuardarReceita" type="button">Salvar Receita</button>
+        </div>
+    </main>
+
     <script src="a2.js"></script>
-
 </body>
-
 </html>

@@ -1,23 +1,56 @@
-function adicionarReceita() {
+document.addEventListener('DOMContentLoaded', () => {
+    const inputValor = document.getElementById('inputValorReceita');
+    const inputDescricao = document.getElementById('inputDescricao');
+    const btnGuardar = document.getElementById('btnGuardarReceita');
 
-    let descricao = document.getElementById("descricao").value;
-    let valor = Number(document.getElementById("valor").value);
-
-    if (descricao === "" || valor <= 0) {
-        alert("Preencha todos os campos corretamente!");
-        return;
+    if (inputValor) {
+        inputValor.addEventListener('input', (e) => {
+            let v = String(e.target.value).replace(/\D/g, '');
+            v = (v / 100).toFixed(2) + '';
+            v = v.replace('.', ',');
+            v = v.replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1.');
+            e.target.value = 'R$ ' + v;
+        });
     }
 
-    let lista = document.getElementById("listaReceitas");
+    if (btnGuardar) {
+        btnGuardar.addEventListener('click', async () => {
+            const descricao = inputDescricao.value;
+            const valor = inputValor.value;
 
-    let item = document.createElement("li");
+            if (!descricao || !valor) {
+                alert("Preencha todos os campos da receita.");
+                return;
+            }
 
-    item.innerHTML = `
-        💰 ${descricao} - R$ ${valor.toFixed(2)}
-    `;
+            try {
+                const resposta = await fetch('http://localhost:50100/api/conta', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        nome: descricao,
+                        email: "receita@email.com",
+                        telefone: valor,
+                        dataMembro: "2026",
+                        plano: "Receita",
+                        dataRenovacao: "2026",
+                        fotoUrl: ""
+                    })
+                });
 
-    lista.appendChild(item);
-
-    document.getElementById("descricao").value = "";
-    document.getElementById("valor").value = "";
-}
+                if (resposta.ok) {
+                    alert("Receita guardada com sucesso!");
+                    inputDescricao.value = '';
+                    inputValor.value = '';
+                } else {
+                    alert("Erro ao guardar receita.");
+                }
+            } catch (erro) {
+                console.error("Erro:", erro);
+                alert("Falha na conexão com o servidor.");
+            }
+        });
+    }
+});

@@ -1,94 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Feira</title>
-    
-        <link rel="stylesheet" href="a.css">
-        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+    <title>FinanceDash - Início</title>
+    <link rel="stylesheet" href="a.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
     <div class="cima">
         <div class="titulo">
-            <P>💰 FinanceDash</P>
+            <p>💰 FinanceDash</p>
         </div>
         <div class="conta">
-            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="">
+            <img src="https://i.pinimg.com/474x/a8/da/22/a8da222be70a71e7858bf752065d5cc3.jpg" alt="Perfil">
         </div>
     </div>
 
     <nav>
         <ul>
-            <li><a href="../telaprincipal/a.html">🏠Início</a> </li>
-            <li><a href="../receitas/a2.html">💰Receitas</a></li>
-            <li><a href="../despesas/a3.html">💸Despesas</a></li>
-            <li><a href="../graficos/a4.html">📊Gráficos</a></li>
-            <li><a href="../metas/a5.html">🎯Metas</a></li>
-            <li><a href="../relatorio/a6.html">📄Relatório</a></li>
-            <li><a href="../conta/a8.html">👤Conta</a></li>
-            <li><a href="../configuracoes/a7.html">⚙️Config</a></li>
-            
+            <li><a href="../telaprincipal/a.html">🏠 Início</a></li>
+            <li><a href="../receitas/a2.html">💰 Receitas</a></li>
+            <li><a href="../despesas/a3.html">💸 Despesas</a></li>
+            <li><a href="../graficos/a4.html">📊 Gráficos</a></li>
+            <li><a href="../metas/a5.html">🎯 Metas</a></li>
+            <li><a href="../relatorio/a6.html">📄 Relatório</a></li>
+            <li><a href="../conta/a8.html">👤 Conta</a></li>
+            <li><a href="../configuracoes/a7.html">⚙️ Config</a></li>
         </ul>
     </nav>
 
-    <div class="Receitas">
-        <h1>Receitas</h1>
-        <input type="text">
-    </div>
-    <div>
-        <h1>Despesas</h1>
-    <input type="text">
-    </div>
+    <main class="conteudo-principal">
+        <div class="cards-topo">
+            <div class="card-painel">
+                <h3>Registar Receita</h3>
+                <input type="text" id="inputReceita" class="input-dash" placeholder="R$ 0,00">
+                <button id="btnSalvarReceita" type="button">Guardar Receita</button>
+            </div>
 
-<div class="area-categoria">
-    <h3>Gastos por Categoria</h3>
-    <div style="height: 220px; margin-bottom: 15px;">
-        <canvas id="meuGrafico"></canvas>
-    </div>
-    <ul class="lista-categorias">
-        <li>🏠 Moradia</li>
-        <li>🍔 Alimentação</li>
-        <li>🚌 Transporte</li>
-        <li>🎮 Lazer e Estilo de Vida</li>
-        <li>🏥 Saúde e Bem-Estar</li>
-    </ul>
-    <div class="coluna-midia">
-            <div class="card-imagem">
-            <img src="https://img.magnific.com/fotos-premium/homem-empilhou-a-mao-moedas-com-dinheiro-conceito-de-poupanca-e-grafico-de-lucro-financas-de-negocios-em-um-cofre-com-caixas-de-dinheiro-para-fundos-futuros-de-turismo-casa-e-aposentadoria-em-um-fundo-desfocado_701856-647.jpg" alt="Ilustração Financeira">
-                <div class="legenda-card">
-                    <h4>Controle Financeiro</h4>
-                    <p>Mantenha suas contas em dia diariamente.</p>
+            <div class="card-painel">
+                <h3>Registar Despesa</h3>
+                <input type="text" id="inputDespesa" class="input-dash" placeholder="R$ 0,00">
+                <button id="btnSalvarDespesa" type="button">Guardar Despesa</button>
+            </div>
+        </div>
+
+        <div class="painel-inferior">
+            <div class="bloco-grafico">
+                <h3>Gastos por Categoria</h3>
+                <div class="container-canvas">
+                    <canvas id="meuGrafico"></canvas>
+                </div>
+            </div>
+
+            <div class="bloco-banner">
+                <div class="card-imagem">
+                    <img src="https://img.magnific.com/fotos-premium/homem-empilhou-a-mao-moedas-com-dinheiro-conceito-de-poupanca-e-grafico-de-lucro-financas-de-negocios-em-um-cofre-com-caixas-de-dinheiro-para-fundos-futuros-de-turismo-casa-e-aposentadoria-em-um-fundo-desfocado_701856-647.jpg" alt="Cofre">
+                    <div class="legenda-card">
+                        <h4>Controle Financeiro</h4>
+                        <p>Mantenha suas contas em dia diariamente.</p>
+                    </div>
                 </div>
             </div>
         </div>
-</div>
+    </main>
 
-
-<main class="main-content">
-    <h2>Visão Geral</h2>
-    <div class="dashboard-grid">
-        <div class="coluna-dados">
-            <div class="grupo-campo">
-            <label>Receitas</label>
-           
-            </div>
-                <div class="grupo-campo">
-                <label>Despesas</label>
-                
-                </div>
-                <div class="area-categoria">
-                <h3>Gastos por Categoria</h3>
-                </div>
-                </div>
-
-
-                
-        
-    </div>
-</main>
     <script src="a.js"></script>
 </body>
 </html>

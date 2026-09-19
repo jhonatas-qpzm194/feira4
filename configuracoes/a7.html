@@ -1,65 +1,186 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Configurações</title>
-    <link rel="stylesheet" href="a7.css">
+    <title>FinanceDash - Configurações</title>
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <link rel="stylesheet" href="a7.css">
 </head>
+
 <body>
 
-    <div class="container-principal">
-        <h1>Configurações do Sistema</h1>
+    <div class="container-pagina">
 
-        <form id="formConfig" class="painel-configuracoes">
-            <!-- Seção de Perfil -->
-            <div class="secao-config">
-                <h3>Perfil do Usuário</h3>
-                <div class="campo">
-                    <label for="nome">Nome do Usuário</label>
-                    <input type="text" id="nome" value="Jhonatas" placeholder="Digite seu nome">
+        <header class="cabecalho-config">
+            <div class="bloco-titulo">
+                <div class="badge-icone">
+                    <i class="fa-solid fa-gear"></i>
                 </div>
-                <div class="campo">
-                    <label for="email">E-mail</label>
-                    <input type="email" id="email" value="usuario@email.com" placeholder="Digite seu e-mail">
+                <div>
+                    <h1>Configurações</h1>
+                    <p>Gira as suas preferências de conta e personalização do sistema</p>
                 </div>
             </div>
+            <button id="btnSalvarConfig" class="btn-acao-principal">
+                <i class="fa-solid fa-floppy-disk"></i> Guardar Alterações
+            </button>
+        </header>
 
-            <!-- Seção de Preferências de Tema -->
-            <div class="secao-config">
-                <h3>Aparência e Gráficos</h3>
-                <div class="campo">
-                    <label for="corTema">Cor Secundária do Painel</label>
-                    <select id="corTema">
-                        <option value="#2563eb">Azul Padrão</option>
-                        <option value="#8a2be2">Roxo Azulado</option>
-                        <option value="#005f73">Azul Petróleo</option>
-                    </select>
-                </div>
-            </div>
+        <div class="painel-principal">
 
-            <!-- Seção de Notificações -->
-            <div class="secao-config">
-                <h3>Notificações</h3>
-                <div class="campo-checkbox">
-                    <input type="checkbox" id="notifEmail" checked>
-                    <label for="notifEmail">Receber relatórios semanais por e-mail</label>
+            <section class="secao-config">
+                <div class="secao-titulo">
+                    <i class="fa-solid fa-user"></i>
+                    <h2>Perfil do Utilizador</h2>
                 </div>
-                <div class="campo-checkbox">
-                    <input type="checkbox" id="alertaMetas" checked>
-                    <label for="alertaMetas">Alertar quando atingir uma meta</label>
+                <div class="grid-campos">
+                    <div class="campo-grupo">
+                        <label for="nomeUsuario">Nome Completo</label>
+                        <input type="text" id="nomeUsuario" placeholder="O seu nome">
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="emailUsuario">E-mail</label>
+                        <input type="email" id="emailUsuario" placeholder="seuemail@exemplo.com">
+                    </div>
                 </div>
-            </div>
+            </section>
 
-            <!-- Botões de Ação -->
-            <div class="navegacao">
-                <a href="../telaprincipal/a.html" class="tela">Voltar</a>
-                <button type="submit" class="tela btn-salvar">Salvar Alterações</button>
-            </div>
-        </form>
+            <section class="secao-config">
+                <div class="secao-titulo">
+                    <i class="fa-solid fa-sliders"></i>
+                    <h2>Preferências Financeiras</h2>
+                </div>
+                <div class="grid-campos">
+                    <div class="campo-grupo">
+                        <label for="moedaPadrao">Moeda Padrão</label>
+                        <select id="moedaPadrao">
+                            <option value="BRL">Real (R$)</option>
+                            <option value="EUR">Euro (€)</option>
+                            <option value="USD">Dólar ($)</option>
+                        </select>
+                    </div>
+                    <div class="campo-grupo">
+                        <label for="limiteAlerta">Alerta de Gastos (%)</label>
+                        <input type="number" id="limiteAlerta" placeholder="Ex: 80" min="1" max="100">
+                    </div>
+                </div>
+            </section>
+
+            <section class="secao-config">
+                <div class="secao-titulo">
+                    <i class="fa-solid fa-bell"></i>
+                    <h2>Notificações & Alertas</h2>
+                </div>
+                <div class="lista-switches">
+                    <div class="item-switch">
+                        <div class="info-switch">
+                            <h4>Notificações por E-mail</h4>
+                            <p>Receber relatórios e alertas no seu e-mail cadastrado</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="notifEmail">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+
+                    <div class="item-switch">
+                        <div class="info-switch">
+                            <h4>Alertas de Contas a Vencer</h4>
+                            <p>Avisar sobre despesas que vencem em breve</p>
+                        </div>
+                        <label class="switch">
+                            <input type="checkbox" id="notifVencimento">
+                            <span class="slider"></span>
+                        </label>
+                    </div>
+                </div>
+            </section>
+
+            <section class="secao-config perigo">
+                <div class="secao-titulo">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h2>Segurança</h2>
+                </div>
+                <div class="acoes-seguranca">
+                    <button type="button" id="btnAlterarSenha" class="btn-secundario">
+                        <i class="fa-solid fa-key"></i> Alterar Senha
+                    </button>
+                    <button type="button" id="btnExportarDados" class="btn-secundario">
+                        <i class="fa-solid fa-download"></i> Exportar Dados
+                    </button>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="navegacao">
+            <a href="../telaprincipal/a.html" class="btn-voltar">
+                <i class="fa-solid fa-arrow-left"></i> Voltar ao Início
+            </a>
+        </div>
+
+    </div>
+
+    <!-- MODAL DE ALTERAÇÃO DE SENHA INTEGRADO -->
+    <div id="modalSenha" class="modal-overlay" aria-hidden="true" role="dialog" aria-labelledby="modalTitulo">
+        <div class="modal-conteudo">
+            
+            <header class="modal-cabecalho">
+                <h3 id="modalTitulo"><i class="fa-solid fa-lock"></i> Alterar Senha</h3>
+                <button class="btn-fechar" id="btnFecharModal" aria-label="Fechar">&times;</button>
+            </header>
+
+            <form id="formAlterarSenha" class="modal-corpo">
+                
+                <div class="campo-grupo">
+                    <label for="senhaAtual">Senha Atual</label>
+                    <div class="input-com-icone">
+                        <input type="password" id="senhaAtual" required placeholder="Digite a senha atual">
+                        <i class="fa-regular fa-eye toggle-senha" data-target="senhaAtual"></i>
+                    </div>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="novaSenha">Nova Senha</label>
+                    <div class="input-com-icone">
+                        <input type="password" id="novaSenha" required placeholder="Digite a nova senha">
+                        <i class="fa-regular fa-eye toggle-senha" data-target="novaSenha"></i>
+                    </div>
+                    
+                    <div class="medidor-forca">
+                        <div id="barraForca" class="barra-forca"></div>
+                    </div>
+                    <span id="textoForca" class="texto-forca">Força da senha</span>
+                </div>
+
+                <div class="campo-grupo">
+                    <label for="confirmarSenha">Confirmar Nova Senha</label>
+                    <div class="input-com-icone">
+                        <input type="password" id="confirmarSenha" required placeholder="Repita a nova senha">
+                        <i class="fa-regular fa-eye toggle-senha" data-target="confirmarSenha"></i>
+                    </div>
+                    <span id="erroConfirmacao" class="texto-erro">As senhas não coincidem</span>
+                </div>
+
+                <div class="modal-rodape">
+                    <button type="button" class="btn-cancelar" id="btnCancelar">Cancelar</button>
+                    <button type="submit" class="btn-salvar">Atualizar Senha</button>
+                </div>
+
+            </form>
+
+        </div>
     </div>
 
     <script src="a7.js"></script>
+
 </body>
+
 </html>
